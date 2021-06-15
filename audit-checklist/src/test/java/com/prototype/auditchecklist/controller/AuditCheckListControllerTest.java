@@ -18,7 +18,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.prototype.auditchecklist.controller.checklistController;
+import com.prototype.auditchecklist.controller.ChecklistController;
 import com.prototype.auditchecklist.feignclients.AuthClient;
 import com.prototype.auditchecklist.model.QuestionsEntity;
 import com.prototype.auditchecklist.pojo.AuditType;
@@ -48,7 +48,7 @@ public class AuditCheckListControllerTest {
 	Environment env;
 	
 	@InjectMocks
-	checklistController auditCheckListController;
+	ChecklistController auditCheckListController;
 	
 	@Mock
 	ChecklistRepository questionsRepository;

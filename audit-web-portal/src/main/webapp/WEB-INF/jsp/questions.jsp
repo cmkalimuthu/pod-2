@@ -31,8 +31,10 @@ h3 {
 	color: #FFF;
 }
 </style>
+
 </head>
 <body>
+
 	<%@ include file="nav.jsp"%>
 	<div class="container">
 

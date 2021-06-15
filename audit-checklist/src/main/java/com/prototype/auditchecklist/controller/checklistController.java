@@ -19,7 +19,7 @@ import com.prototype.auditchecklist.service.TokenService;
 import com.prototype.auditchecklist.service.checklistService;
 
 @RestController
-public class checklistController {
+public class ChecklistController {
 	
 	@Autowired
 	checklistService service;
