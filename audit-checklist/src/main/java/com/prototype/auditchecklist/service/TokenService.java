@@ -7,6 +7,8 @@ import com.prototype.auditchecklist.exception.FeignProxyException;
 import com.prototype.auditchecklist.feignclients.AuthClient;
 import com.prototype.auditchecklist.pojo.AuthResponse;
 
+import feign.FeignException;
+
 @Service
 public class TokenService implements TokenServiceInt{
 
@@ -19,6 +21,9 @@ public class TokenService implements TokenServiceInt{
 			if(authResponse==null) throw new FeignProxyException();
 			return authResponse.isValid();	
 		}catch (FeignProxyException fe) {
+			return false;
+		}
+		catch(FeignException e) {
 			return false;
 		}
 	}

@@ -27,7 +27,6 @@ INDEX VERSION 1.131+C:\cts-project\.metadata\.plugins\org.eclipse.jdt.core
 1368601233.index
 1450228855.index
 3882405965.index
-1189618248.index
 3140707162.index
 2864014392.index
 2452987875.index
