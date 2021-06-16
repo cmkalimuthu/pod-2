@@ -8,6 +8,15 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
     <title>Session Expired</title>
 </head>
+<style>
+html {
+  background-color: white;
+}
+
+body > div:nth-child(2) > div:nth-child(2) {
+  padding: 10px;
+}
+</style>
 <body>
 	
 	<div class="text-center container mt-4">

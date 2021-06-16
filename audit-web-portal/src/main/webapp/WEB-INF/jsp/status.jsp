@@ -14,8 +14,15 @@
 </head>
 <style>
 body {
-	background: linear-gradient(to right, orange, orange);
+	background: linear-gradient(to right, orange,#9f5b5b);
 	/* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+td{
+background-color:white;
+border-width:5px; 
+}
+table,th{
+border-width:5px;
 }
 
 </style>
@@ -25,12 +32,23 @@ body {
 		<div align="center" style="margin-top: 250px;">
 			<table border="1" cellpadding="5">
 				<tr>
+					<th>Project Name</th>
+					<th>Project Manager</th>
+					<th>Project Owner</th>
+					<th>Audit Type</th>
+					<th>Audit Date</th>
 					<th>Execution status</th>
 					<th>Remedial Action</th>
+					
 				</tr>
 
 				<tr>
-					<td style=";color:white;background-color:${auditResponse.getExecutionStatus()}">${auditResponse.getExecutionStatus()}</td>
+					<td>${auditResponse.getProjectName()}</td>
+					<td>${auditResponse.getManagerName()}</td>
+					<td>${auditResponse.getOwnerName()}</td>
+					<td>${auditResponse.getAuditType()}</td>
+					<td>${auditResponse.getAuditDate()}</td>
+					<td style=";color:white;padding: 10px;;background-color:${auditResponse.getExecutionStatus()}">${auditResponse.getExecutionStatus()}</td>
 					<td>${auditResponse.getDuration()}</td>
 				</tr>
 

@@ -20,6 +20,17 @@ body {
 	/* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
+/* Element | http://localhost:8084/status */
+
+html {
+  background-color: white;
+}
+
+body > div:nth-child(2) > div:nth-child(2) {
+  padding: 10px;
+}
+
+
 h1 {
 	color: #FFF;
 }

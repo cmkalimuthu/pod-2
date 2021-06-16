@@ -1,5 +1,7 @@
 package com.prototype.auditseverity.model;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -19,17 +21,27 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name="auditresponse")
+@Table(name = "auditresponse")
 public class AuditResponse {
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="ResponseId")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "ResponseId")
 	private int responseId;
-	@Column(name="ExecutionStatus")
+	@Column(name = "ExecutionStatus")
 	private String executionStatus;
-	@Column(name="ActionDuration")
+	@Column(name = "ActionDuration")
 	private String duration;
-	
+	@Column(name = "ProjectName")
+	String projectName;
+	@Column(name = "ManagerName")
+	String managerName;
+	@Column(name = "OwnerName")
+	String ownerName;
+	@Column(name = "AuditType")
+	String auditType;
+	@Column(name = "auditDate")
+	Date auditDate;
+
 	public AuditResponse(String executionStatus, String duration) {
 		super();
 		this.executionStatus = executionStatus;

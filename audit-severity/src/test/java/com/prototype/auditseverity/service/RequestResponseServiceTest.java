@@ -6,7 +6,7 @@ import static org.junit.Assert.assertNull;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
-
+import java.util.Date;
 import java.util.List;
 
 import org.junit.Test;
@@ -29,38 +29,32 @@ import com.prototype.auditseverity.service.RequestResponseService;
 @ContextConfiguration
 public class RequestResponseServiceTest {
 
-	
 	@InjectMocks
-    RequestResponseService requestResponseService;
-	
+	RequestResponseService requestResponseService;
+
 	@Mock
 	RequestResponseService req1;
-	
+
 	@Mock
 	AuditCheckListFeign auditCheckListFeign;
-	
+
 	@Mock
 	AuditBenchmarkFeign auditBenchmarkFeign;
 
 	@Mock
 	ResponseRepository responseRepository;
-	
+
 	@Test
 	public void saveResponseTest() {
-		AuditResponse response = new AuditResponse(1,"GREEN","No action required");
-		AuditResponse response1 = new AuditResponse(1,response.getExecutionStatus(),response.getDuration());
+		Date auditDate = new Date();
+		AuditResponse response = new AuditResponse(1, "GREEN", "No action required", " projectName", "managerName",
+				"ownerName", "auditType2", auditDate);
+		AuditResponse response1 = new AuditResponse(1, response.getExecutionStatus(), response.getDuration(),
+				response.getProjectName(), response.getManagerName(), response.getOwnerName(), response.getAuditType(),
+				response.getAuditDate());
 		when(responseRepository.save(response1)).thenReturn(response1);
 		assertEquals(response1, requestResponseService.saveResponse(response));
-		
+
 	}
-	
 
-	
-	
-
-	
-	
-	
-
-	
 }
