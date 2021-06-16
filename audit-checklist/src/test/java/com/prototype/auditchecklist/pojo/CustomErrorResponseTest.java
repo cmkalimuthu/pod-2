@@ -13,12 +13,21 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import lombok.extern.slf4j.Slf4j;
-
+/**
+ * @version 1.8 
+ * 			This class we are using as a response of error handling message.
+ *          In the {@link GlobalErrorHandler} class we are using this
+ *          {@link CustomErrorResponse} class as a return type that will be
+ *          shown to the client whenever any kind of exception occurs. The
+ *          fields of this class will be used to show this kind of response.
+ */
 @RunWith(SpringRunner.class)
 @ContextConfiguration
 @Slf4j
 public class CustomErrorResponseTest {
-
+	/**
+	 * to test the no param constructor of CustomErrorResponse
+	 */
 
 
 	@Test
@@ -27,7 +36,9 @@ public class CustomErrorResponseTest {
 		CustomErrorResponse customErrorResponse = new CustomErrorResponse();
 		assertNotNull(customErrorResponse);
 	}
-
+	/**
+	 * to test the all param constructor of CustomErrorResponse
+	 */
 	@Test
 	public void testCustomErrorResponseParameterized() {
 
@@ -36,7 +47,9 @@ public class CustomErrorResponseTest {
 		assertNotNull(customErrorResponse);
 
 	}
-
+	 /**
+     * to test the ToStringMethod
+     */
 	@Test
 	public void testToStringMethod() {
 
@@ -54,7 +67,10 @@ public class CustomErrorResponseTest {
 		assertEquals(HttpStatus.OK, customErrorResponse.getStatus());
 
 	}
-
+	/**
+	    * to test the getter setter of message
+	    */
+	
 	@Test
 	public void testGetMessage() {
 
@@ -63,7 +79,9 @@ public class CustomErrorResponseTest {
 		assertEquals("Message", customErrorResponse.getMessage());
 
 	}
-
+	/**
+	    * to test the getter setter of LocalDateTime
+	    */
 	@Test
 	public void testSetLocalDateTime() {
 
@@ -71,7 +89,9 @@ public class CustomErrorResponseTest {
 		customErrorResponse.setTimestamp(LocalDateTime.now());
 
 	}
-
+	 /**
+	   *  to test the getter setter of Status
+	   */
 	@Test
 	public void testSetStatus() {
 
@@ -80,7 +100,9 @@ public class CustomErrorResponseTest {
 
 
 	}
-
+	/**
+	  *  to test the getter setter of message
+	  */
 	@Test
 	public void testSetMessage() {
 		CustomErrorResponse customErrorResponse = new CustomErrorResponse();

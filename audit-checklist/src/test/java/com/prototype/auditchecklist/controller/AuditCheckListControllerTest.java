@@ -28,6 +28,10 @@ import com.prototype.auditchecklist.service.checklistService;
 
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * 		 	This class contains test cases for the AuthController
+ *          class which are written using junit and mockito
+ */
 @RunWith(SpringRunner.class)
 @ContextConfiguration @Slf4j
 public class AuditCheckListControllerTest {
@@ -57,7 +61,9 @@ public class AuditCheckListControllerTest {
 	public void contextLoads() {
 		assertNotNull(auditCheckListController);
 	}
-
+	/**
+	 * To test testGetCheckList method
+	 */
 	@Test
 	public void testGetChecklist() {
 		ResponseEntity<?> responseEntity = null;

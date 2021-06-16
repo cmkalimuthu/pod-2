@@ -17,7 +17,12 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import com.prototype.auditchecklist.model.QuestionsEntity;
 import com.prototype.auditchecklist.repository.ChecklistRepository;
-
+/**
+ * 
+ * 			This class contains test cases for the checklistService class
+ *          which are written using junit and mockito
+ *
+ */
 @RunWith(SpringRunner.class)
 @ContextConfiguration 
 public class ChecklistServiceTest {
@@ -27,7 +32,10 @@ public class ChecklistServiceTest {
 	
 	@InjectMocks
 	checklistService questionsService;
-
+	/**
+	 * test to check whether it returns a list
+	 * @throws IndexOutOfBoundsException
+	 */
 	@Test
 	public void testGetQuestionsList() throws IndexOutOfBoundsException{
 		List<QuestionsEntity> questions = new ArrayList<>();
@@ -35,7 +43,9 @@ public class ChecklistServiceTest {
 		when(questionsRespository.findByAuditType("Internal")).thenReturn(questions);
 		assertEquals(questions,questionsService.getQuestions("Internal"));
 	}
-
+	/**
+	 * test questions when list throws IndexOutOfBoundsException
+	 */
 	@Test
 	public void testQuestionsListthrowsIndexOutOfBoundsException() {
 		when(questionsRespository.findByAuditType("Internal")).thenThrow(IndexOutOfBoundsException.class);

@@ -18,9 +18,27 @@ import com.prototype.auditchecklist.pojo.AuditType;
 import com.prototype.auditchecklist.service.TokenService;
 import com.prototype.auditchecklist.service.checklistService;
 
+/**
+ * 
+ * This class is handling all the end points for Audit Checklist microservice. 
+ * This controller has mappings as-
+ * 			postmapping-getQuestions()
+ * 			postmapping-saveRespose()
+ *
+ */
+
 @RestController
 public class ChecklistController {
 	
+	/**
+     * 
+     * @param token
+     * @param auditType
+     * @return ResponseEntity<Response>
+     * 
+     * Returns the Questions according to the User's input whether he has chosen Internal or SOX audit type
+	 *
+     */
 	@Autowired
 	checklistService service;
 	
@@ -51,6 +69,15 @@ public class ChecklistController {
 			
 		
 	}
+	/**
+	 * 
+	 * @param token
+	 * @param questionsResponse
+	 * @return ResponseEntity 
+	 * 
+	 * This is storing the responses of the Internal/SOX Audit Questions into the database.
+	 * 
+	 */
 	@PostMapping("/save-response")
 	public ResponseEntity<?> saveRespose(@RequestHeader(name = "Authorization",required = true)String token,@RequestBody List<QuestionsEntity> questionsResponse){
 	

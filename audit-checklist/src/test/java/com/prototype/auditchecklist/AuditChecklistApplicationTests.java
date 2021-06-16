@@ -1,4 +1,9 @@
 package com.prototype.auditchecklist;
+/**
+ * 
+ * Test class for AuditManagementAuthenticationApplication
+ *
+ */
 
 import static org.junit.Assert.assertNotNull;
 

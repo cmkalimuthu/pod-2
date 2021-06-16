@@ -18,7 +18,9 @@ import com.prototype.auditchecklist.feignclients.AuthClient;
 import com.prototype.auditchecklist.pojo.AuthResponse;
 
 import lombok.extern.slf4j.Slf4j;
-
+/**
+ * This class contains test cases for the TokenServiceTest class.
+ */
 @RunWith(SpringRunner.class)
 @ContextConfiguration
 @Slf4j
@@ -34,7 +36,10 @@ public class TokenServiceTest {
 
 	@Mock
 	ResponseEntity<AuthResponse> entity;
-
+	/**
+	 * test to check the validity of token when token is valid 
+	 */
+	
 	@Test
 	public void testCheckTokenValidityWhenTokenIsValid() {
 		entity = new ResponseEntity<AuthResponse>(new AuthResponse(null, true),HttpStatus.OK);
@@ -44,7 +49,9 @@ public class TokenServiceTest {
 		
 
 	}
-
+	/**
+	 * test to check the validity of token when token gives null pointer exception
+	 */
 	@Test
 	public void testCheckTokenValidityWhenTokenNullPointerException() {
 
@@ -52,7 +59,9 @@ public class TokenServiceTest {
 	
 
 	}
-
+	/**
+	 * test to check the validity of token when token is invalid
+	 */
 	@Test
 	public void testCheckTokenValidityWhenTokenIsInvalid() {
 	

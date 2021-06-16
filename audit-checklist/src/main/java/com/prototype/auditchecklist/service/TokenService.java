@@ -1,5 +1,10 @@
 package com.prototype.auditchecklist.service;
-
+/**
+ * 
+ * This class is implementing {@link TokenService}.
+ * The method of this class is used in other classes to validate token received.
+ *
+ */
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,7 +16,9 @@ import feign.FeignException;
 
 @Service
 public class TokenService implements TokenServiceInt{
-
+	/**
+	 * Interface interacting with Auth microservice
+	 */
 	@Autowired
 	private AuthClient authClient;
 	

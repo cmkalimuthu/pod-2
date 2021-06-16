@@ -13,7 +13,12 @@ import org.springframework.test.context.junit4.SpringRunner;
 @RunWith(SpringRunner.class)
 @ContextConfiguration
 public class FeignProxyExceptionTest{
-	
+	/**
+	 * 
+	 * This class test the FeignProxyException class
+	 * 
+	 *
+	 */
 	
 	
 	@Mock
