@@ -126,14 +126,12 @@ public class WebPortalController {
 		} catch (Exception e) {
 			if (e.getMessage().contains("the token is expired and not valid anymore"))
 				return "tokenExpiredPage";
-			if (e.getMessage().contains("Authentication Failed. Username or Password not valid."))
-				return "authFailed";
-
-			return "internalServerError";
+			
+			return "forbidden";
 		}
 		if (authResponse == null) {
-			return "tokenExpiredPage";
-
+			return "internalServerError";
+			
 		}
 		return "questions";
 
