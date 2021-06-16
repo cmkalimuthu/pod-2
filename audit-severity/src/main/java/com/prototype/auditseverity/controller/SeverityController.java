@@ -22,7 +22,17 @@ import com.prototype.auditseverity.pojo.AuditType;
 import com.prototype.auditseverity.service.RequestResponseService;
 import com.prototype.auditseverity.service.TokenService;
 
+import lombok.extern.slf4j.Slf4j;
+
+/**
+ * 
+ * This class is handling all the end points for Audit Checklist microservice.
+ * This controller has mappings as- postmapping-auditSeverity()
+ *
+ */
+
 @RestController
+@Slf4j
 public class SeverityController {
 
 	@Autowired
@@ -40,9 +50,17 @@ public class SeverityController {
 	@Autowired
 	TokenService tokenService;
 
+	/**
+	 * 
+	 * @param token
+	 * @param auditRequest
+	 * @return ResponseEntity<Response>
+	 */
+
 	@PostMapping("/execution-status")
 	public ResponseEntity<?> getExceutionStatus(@RequestHeader(name = "Authorization", required = true) String token,
 			@RequestBody AuditRequest request) {
+		log.info("start");
 		int noNos = 0;
 		int actualNos = 0;
 		String managerName = request.getManagerName();
@@ -50,7 +68,7 @@ public class SeverityController {
 		String auditType2 = request.getAuditDetails().getAuditType();
 		Date auditDate = request.getAuditDetails().getAuditDate();
 		String ownerName = request.getOwnerName();
-		
+
 		ResponseEntity<?> responseEntity = null;
 		List<QuestionsEntity> questionsList = null;
 		if (tokenService.checkTokenValidity(token)) {
@@ -76,19 +94,25 @@ public class SeverityController {
 			System.out.println("actual no" + actualNos);
 			System.out.println("response nos" + noNos);
 			if (auditType.getAuditType().equals("Internal") && noNos <= actualNos) {
-				response = new AuditResponse(1, "green", "no action required", projectName, managerName,ownerName,auditType2,auditDate);
+				response = new AuditResponse(1, "green", "no action required", projectName, managerName, ownerName,
+						auditType2, auditDate);
 			} else if (auditType.getAuditType().equals("Internal") && noNos > actualNos) {
-				response = new AuditResponse(2, "red", "Action to be taken in 2 weeks", projectName, managerName,ownerName,auditType2,auditDate);
+				response = new AuditResponse(2, "red", "Action to be taken in 2 weeks", projectName, managerName,
+						ownerName, auditType2, auditDate);
 			} else if (auditType.getAuditType().equals("SOX") && noNos <= actualNos) {
-				response = new AuditResponse(3, "green", "no action needed", projectName, managerName,ownerName,auditType2,auditDate);
+				response = new AuditResponse(3, "green", "no action needed", projectName, managerName, ownerName,
+						auditType2, auditDate);
 			} else if (auditType.getAuditType().equals("SOX") && noNos > actualNos) {
-				response = new AuditResponse(4, "red", "Action to be taken in 1 weeks", projectName, managerName,ownerName,auditType2,auditDate);
+				response = new AuditResponse(4, "red", "Action to be taken in 1 weeks", projectName, managerName,
+						ownerName, auditType2, auditDate);
 			}
 			requestResponseService.saveResponse(response);
 			requestResponseService.saveRequest(request);
 			responseEntity = new ResponseEntity<AuditResponse>(response, HttpStatus.OK);
 			return responseEntity;
 		} else {
+			log.error("token expired");
+			log.info("end");
 			responseEntity = new ResponseEntity<String>("the token is expired and not valid anymore",
 					HttpStatus.FORBIDDEN);
 			return responseEntity;

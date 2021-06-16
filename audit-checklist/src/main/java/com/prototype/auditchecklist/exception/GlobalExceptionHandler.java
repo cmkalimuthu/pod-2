@@ -33,13 +33,17 @@ public class GlobalExceptionHandler {
 	 * This method is to Handle Exception when Date is not properly formated
 	 */
 	@ExceptionHandler(FeignProxyException.class)
-	public ResponseEntity<CustomErrorResponse> handelFeignProxyException(FeignProxyException ex) {
+	public ResponseEntity<CustomErrorResponse> handelFeignProxyException(FeignProxyException ex) { 
+		log.info("start");
 		CustomErrorResponse response = new CustomErrorResponse();
 		response.setTimestamp(LocalDateTime.now());
 		response.setMessage(ex.getMessage());
 		response.setStatus(HttpStatus.NOT_FOUND);
 		response.setReason("feign client is null");
+		log.info("end");
 		return new ResponseEntity<CustomErrorResponse>(response, HttpStatus.NOT_FOUND);
+		
+		
 	}
 
 }

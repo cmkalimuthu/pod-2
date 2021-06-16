@@ -1,21 +1,18 @@
 package com.prototype.auditchecklist.pojo;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import java.time.LocalDateTime;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
-import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import lombok.extern.slf4j.Slf4j;
 /**
- * @version 1.8 
- * 			This class we are using as a response of error handling message.
+ * @version 1.8 This class we are using as a response of error handling message.
  *          In the {@link GlobalErrorHandler} class we are using this
  *          {@link CustomErrorResponse} class as a return type that will be
  *          shown to the client whenever any kind of exception occurs. The
@@ -23,12 +20,11 @@ import lombok.extern.slf4j.Slf4j;
  */
 @RunWith(SpringRunner.class)
 @ContextConfiguration
-@Slf4j
+
 public class CustomErrorResponseTest {
 	/**
 	 * to test the no param constructor of CustomErrorResponse
 	 */
-
 
 	@Test
 	public void testCustomErrorResponse() {
@@ -36,6 +32,7 @@ public class CustomErrorResponseTest {
 		CustomErrorResponse customErrorResponse = new CustomErrorResponse();
 		assertNotNull(customErrorResponse);
 	}
+
 	/**
 	 * to test the all param constructor of CustomErrorResponse
 	 */
@@ -47,9 +44,10 @@ public class CustomErrorResponseTest {
 		assertNotNull(customErrorResponse);
 
 	}
-	 /**
-     * to test the ToStringMethod
-     */
+
+	/**
+	 * to test the ToStringMethod
+	 */
 	@Test
 	public void testToStringMethod() {
 
@@ -67,10 +65,11 @@ public class CustomErrorResponseTest {
 		assertEquals(HttpStatus.OK, customErrorResponse.getStatus());
 
 	}
+
 	/**
-	    * to test the getter setter of message
-	    */
-	
+	 * to test the getter setter of message
+	 */
+
 	@Test
 	public void testGetMessage() {
 
@@ -79,9 +78,10 @@ public class CustomErrorResponseTest {
 		assertEquals("Message", customErrorResponse.getMessage());
 
 	}
+
 	/**
-	    * to test the getter setter of LocalDateTime
-	    */
+	 * to test the getter setter of LocalDateTime
+	 */
 	@Test
 	public void testSetLocalDateTime() {
 
@@ -89,20 +89,21 @@ public class CustomErrorResponseTest {
 		customErrorResponse.setTimestamp(LocalDateTime.now());
 
 	}
-	 /**
-	   *  to test the getter setter of Status
-	   */
+
+	/**
+	 * to test the getter setter of Status
+	 */
 	@Test
 	public void testSetStatus() {
 
 		CustomErrorResponse customErrorResponse = new CustomErrorResponse();
 		customErrorResponse.setStatus(HttpStatus.OK);
 
-
 	}
+
 	/**
-	  *  to test the getter setter of message
-	  */
+	 * to test the getter setter of message
+	 */
 	@Test
 	public void testSetMessage() {
 		CustomErrorResponse customErrorResponse = new CustomErrorResponse();

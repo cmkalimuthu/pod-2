@@ -13,16 +13,21 @@ import org.mockito.Mock;
 import org.springframework.http.HttpStatus;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
+
 import com.prototype.auditbenchmark.feignclient.AuthClient;
 import com.prototype.auditbenchmark.model.BenchMark;
 import com.prototype.auditbenchmark.service.TokenService;
+
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * 
- * Test class for BenchmarkController 
+ * Test class for BenchmarkController
  */
 
 @RunWith(SpringRunner.class)
-@ContextConfiguration 
+@ContextConfiguration
+@Slf4j
 public class BenchMarkControllerTest {
 
 	/**
@@ -30,32 +35,37 @@ public class BenchMarkControllerTest {
 	 */
 	@Mock
 	AuthClient authClient;
-		
+
 	@Mock
 	TokenService tokenService;
-	
+
 	@Mock
 	BenchMark benchmark;
-	
+
 	@InjectMocks
 	BenchMarkController benchmarkcontroller;
+
 	/**
 	 * Testing the methods
-	 */	
-    @Test
+	 */
+	@Test
 	public void testGetBenchmark() {
+		log.info("end");
 		List<BenchMark> benchmarkList = new ArrayList<>();
-		
+
 		benchmarkList.add(new BenchMark("Internal", 3));
 		benchmarkList.add(new BenchMark("SOX", 1));
-		
+
 		when(tokenService.checkTokenValidity("token")).thenReturn(true);
-		assertEquals(benchmarkList,benchmarkcontroller.getBenchMark("token").getBody());
+		assertEquals(benchmarkList, benchmarkcontroller.getBenchMark("token").getBody());
+		log.info("end");
 	}
-	
+
 	@Test
 	public void testTokenIsInvalid() {
+		log.info("start");
 		when(tokenService.checkTokenValidity("token")).thenReturn(false);
-		assertEquals(HttpStatus.FORBIDDEN,benchmarkcontroller.getBenchMark("token").getStatusCode());
+		assertEquals(HttpStatus.FORBIDDEN, benchmarkcontroller.getBenchMark("token").getStatusCode());
+		log.info("end");
 	}
 }

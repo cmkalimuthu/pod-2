@@ -9,28 +9,52 @@ import com.prototype.auditseverity.pojo.AuthResponse;
 
 import feign.FeignException;
 import lombok.extern.slf4j.Slf4j;
+/**
+ * 
 
+ * This class is implementing {@link TokenService}.
+ * The method of this class is used in other classes to validate token received.
+ * 
+ * @see AuthClient
+ *
+ */
 @Service
 @Slf4j
 public class TokenServiceImpl implements TokenService {
 
+	/**
+	 * Interface interacting with Auth microservice
+	 */
 	@Autowired
 	private AuthClient authClient;
-
-	public Boolean checkTokenValidity(String token)  {
-
+	/**
+	 * @param token
+	 * @return boolean this method will check the token validity by communicating
+	 *         with auth client.
+	 */
+	public Boolean checkTokenValidity(String token) {
+		log.info("start");
+    	log.debug("token",token);
 		try {
+			log.debug("valid check success");
 			AuthResponse authResponse = authClient.getValidity(token).getBody();
-			if(authResponse==null) throw new FeignProxyException();
-			
+			if (authResponse == null)
+				throw new FeignProxyException();
+			log.info("end");
 			return authResponse.isValid();
 		} catch (FeignProxyException fe) {
-			
+			log.debug("validation failed");
+			log.error("feign proxy exception",fe);
+			log.info("end");
+
 			return false;
-		}catch(FeignException e) {
+		} catch (FeignException e) {
+			log.debug("validation failed");
+			log.error("feign exception",e);
+			log.info("end");
 			return false;
 		}
-		
+
 	}
 
 }

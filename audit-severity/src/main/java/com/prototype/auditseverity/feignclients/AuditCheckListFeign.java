@@ -11,11 +11,15 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import com.prototype.auditseverity.model.QuestionsEntity;
 import com.prototype.auditseverity.pojo.AuditType;
 
-@FeignClient(name="audit-checklist",url="${audit.checklist.url}")
+/**
+ * 
+ * This feign client is used to call methods of audit checklist microservice
+ */
+@FeignClient(name = "audit-checklist", url = "${audit.checklist.url}")
 public interface AuditCheckListFeign {
-	
+
 	@PostMapping("/checklist")
-	public ResponseEntity<List<QuestionsEntity>> getQuestions(@RequestHeader(name = "Authorization",required = true)String token,@RequestBody AuditType auditType);
-	
+	public ResponseEntity<List<QuestionsEntity>> getQuestions(
+			@RequestHeader(name = "Authorization", required = true) String token, @RequestBody AuditType auditType);
 
 }

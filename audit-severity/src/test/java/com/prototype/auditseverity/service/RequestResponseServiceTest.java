@@ -1,13 +1,9 @@
 package com.prototype.auditseverity.service;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
 import static org.mockito.Mockito.when;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -19,14 +15,13 @@ import org.springframework.test.context.junit4.SpringRunner;
 import com.prototype.auditseverity.feignclients.AuditBenchmarkFeign;
 import com.prototype.auditseverity.feignclients.AuditCheckListFeign;
 import com.prototype.auditseverity.model.AuditResponse;
-import com.prototype.auditseverity.model.QuestionsEntity;
-import com.prototype.auditseverity.pojo.AuditBenchmark;
-import com.prototype.auditseverity.pojo.AuditType;
 import com.prototype.auditseverity.repository.ResponseRepository;
-import com.prototype.auditseverity.service.RequestResponseService;
+
+import lombok.extern.slf4j.Slf4j;
 
 @RunWith(SpringRunner.class)
 @ContextConfiguration
+@Slf4j
 public class RequestResponseServiceTest {
 
 	@InjectMocks
@@ -46,6 +41,7 @@ public class RequestResponseServiceTest {
 
 	@Test
 	public void saveResponseTest() {
+		log.info("start");
 		Date auditDate = new Date();
 		AuditResponse response = new AuditResponse(1, "GREEN", "No action required", " projectName", "managerName",
 				"ownerName", "auditType2", auditDate);
@@ -54,6 +50,7 @@ public class RequestResponseServiceTest {
 				response.getAuditDate());
 		when(responseRepository.save(response1)).thenReturn(response1);
 		assertEquals(response1, requestResponseService.saveResponse(response));
+		log.info("end");
 
 	}
 

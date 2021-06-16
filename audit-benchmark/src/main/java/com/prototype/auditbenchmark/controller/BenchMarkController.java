@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.prototype.auditbenchmark.model.BenchMark;
 import com.prototype.auditbenchmark.service.TokenService;
+
+import lombok.extern.slf4j.Slf4j;
 /**
  * 
  * This class is handling all the end points for returning benchmark of acceptable no of NO's for a particular
@@ -21,6 +23,7 @@ import com.prototype.auditbenchmark.service.TokenService;
  *
  */
 @RestController
+@Slf4j
 public class BenchMarkController {
 
 	@Autowired
@@ -34,6 +37,7 @@ public class BenchMarkController {
 
 	@GetMapping("/audit-benchmark")
 	public ResponseEntity<?> getBenchMark(@RequestHeader("Authorization") String token) {
+		log.info("start");
 		ArrayList<BenchMark> marksList = new ArrayList<>();
 		ResponseEntity<?> responseEntity = null;
 		marksList.add(new BenchMark("Internal", 3));
@@ -42,6 +46,8 @@ public class BenchMarkController {
 
 			responseEntity = new ResponseEntity<List<BenchMark>>(marksList, HttpStatus.OK);
 		} else {
+			log.error("token expired"); 
+			log.info("end");
 			responseEntity = new ResponseEntity<String>("the token is expired and not valid anymore", HttpStatus.FORBIDDEN);
 			return responseEntity;
 		}

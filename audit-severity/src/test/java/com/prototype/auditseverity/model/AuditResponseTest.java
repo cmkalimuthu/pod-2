@@ -14,7 +14,7 @@ import org.junit.Test;
 public class AuditResponseTest {
 
 	private AuditResponse auditResponse;
-	
+
 	/*
 	 * Here this method used to instantiate AuditResponse before test method calls
 	 */
@@ -22,7 +22,7 @@ public class AuditResponseTest {
 	public void setup() {
 		auditResponse = new AuditResponse();
 	}
-	
+
 	/*
 	 * Here this method used to test the project Execution by get and set method
 	 */
@@ -31,16 +31,17 @@ public class AuditResponseTest {
 		auditResponse.setExecutionStatus("GREEN");
 		assertEquals("GREEN", auditResponse.getExecutionStatus());
 	}
-	
+
 	/*
-	 * Here this method used to test the remedial action duration by get and set method
+	 * Here this method used to test the remedial action duration by get and set
+	 * method
 	 */
 	@Test
 	public void testGetSetRemedialActionDuration() {
 		auditResponse.setDuration("None");
 		assertEquals("None", auditResponse.getDuration());
 	}
-	
+
 	/*
 	 * Here this method used to test the response id by get and set method
 	 */
@@ -48,4 +49,41 @@ public class AuditResponseTest {
 	public void testGetResponseId() {
 		assertEquals(0, auditResponse.getResponseId());
 	}
+
+	@Test
+	public void testGetSetAuditType() {
+		auditResponse.setAuditType("Internal");
+		assertEquals("Internal", auditResponse.getAuditType());
+	}
+
+	@Test
+	public void testSetGetAuditType() {
+		auditResponse.setAuditType("Internal");
+		assertEquals("Internal", auditResponse.getAuditType());
+	}
+
+	@Test
+	public void testSetGetAuditDate() {
+		auditResponse.setAuditDate(null);
+		assertEquals(null, auditResponse.getAuditDate());
+	}
+
+	@Test
+	public void testSetGetManagerName() {
+		auditResponse.setManagerName("manager");
+		assertEquals("manager", auditResponse.getManagerName());
+	}
+
+	@Test
+	public void testSetGetProjectName() {
+		auditResponse.setProjectName("audit");
+		assertEquals("audit", auditResponse.getProjectName());
+	}
+
+	@Test
+	public void testSetGetOwnerName() {
+		auditResponse.setOwnerName("owner");
+		assertEquals("owner", auditResponse.getOwnerName());
+	}
+
 }

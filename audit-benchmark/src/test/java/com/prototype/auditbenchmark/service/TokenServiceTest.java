@@ -17,9 +17,12 @@ import org.springframework.test.context.junit4.SpringRunner;
 import com.prototype.auditbenchmark.feignclient.AuthClient;
 import com.prototype.auditbenchmark.pojo.AuthResponse;
 
+import lombok.extern.slf4j.Slf4j;
+
 
 @RunWith(SpringRunner.class)
 @ContextConfiguration
+@Slf4j
 public class TokenServiceTest {
 	
 	@InjectMocks
@@ -38,9 +41,11 @@ public class TokenServiceTest {
 	 */	
 	@Test
 	public void testTokenValidityWhenTokenIsValid() {
+		log.info("start");
 		authResponseEntity = new ResponseEntity<AuthResponse>(new AuthResponse(null, true),HttpStatus.OK);
 		when(authClient.getValidity("token")).thenReturn(authResponseEntity);
         assertEquals(true, tokenService.checkTokenValidity("token"));
+        log.info("end");
 
 	}
 	/**
@@ -56,9 +61,11 @@ public class TokenServiceTest {
 	 */
 	@Test
 	public void testTokenValidityWhenTokenIsInvalid() {
+		log.info("start");
 		authResponseEntity = new ResponseEntity<AuthResponse>(new AuthResponse(null,false),HttpStatus.FORBIDDEN);
 		when(authClient.getValidity("token")).thenReturn(authResponseEntity);
 		assertEquals(false, tokenService.checkTokenValidity("token"));
+		log.info("end");
 
 	}
 

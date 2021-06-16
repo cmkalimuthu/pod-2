@@ -17,19 +17,21 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.SignatureException;
+import lombok.extern.slf4j.Slf4j;
+
 /**
-*
-* This class is used to intercept every method. It extends class
-*          {@link OncePerRequestFilter} that aims to guarantee a single
-*          execution per request dispatch, on any servlet container. It
-*          provides a doFilterInternalmethod with HttpServletRequest and
-*          HttpServletResponse arguments.
-*
-* HttpServletRequest
-* HttpServletResponse
-*/
+ *
+ * This class is used to intercept every method. It extends class
+ * {@link OncePerRequestFilter} that aims to guarantee a single execution per
+ * request dispatch, on any servlet container. It provides a
+ * doFilterInternalmethod with HttpServletRequest and HttpServletResponse
+ * arguments.
+ *
+ * HttpServletRequest HttpServletResponse
+ */
 
 @Component
+@Slf4j
 public class JwtRequestFilter extends OncePerRequestFilter {
 	/**
 	 * This holds the object of type {@link JwtUtil} class which will be injected
@@ -38,8 +40,8 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 	@Autowired
 	private JwtUtil jwtUtil;
 	/**
-	 * This holds the object of type {@link ManagerService} class which will
-	 * be injected automatically because of the annotation autowired.
+	 * This holds the object of type {@link ManagerService} class which will be
+	 * injected automatically because of the annotation autowired.
 	 */
 	@Autowired
 	ManagerService managerService;
@@ -48,7 +50,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 	 * This method guaranteed to be just invoked once per request within a single
 	 * request thread.
 	 */
-	
+
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
@@ -56,21 +58,23 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 		final String authHeadder = request.getHeader("Authorization");
 		String username = null;
 		String jwt = null;
+		log.debug(authHeadder);
+
 		if (authHeadder != null && authHeadder.startsWith("Bearer ")) {
 			jwt = authHeadder.substring(7);
 			try {
 				username = jwtUtil.extractUsername(jwt);
 
 			} catch (IllegalArgumentException e) {
-				logger.error("illegal argument");
+				log.error("illegal argument");
 			} catch (ExpiredJwtException e) {
-				logger.error("token expired");
+				log.error("token expired");
 
 			} catch (SignatureException e) {
-				logger.error("authentication failed");
+				log.error("authentication failed");
 			}
 		} else {
-			logger.warn("token not found");
+			log.warn("token not found");
 		}
 
 		if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {

@@ -24,43 +24,49 @@ public class CustomErrorResponseTest {
 
 	@Test
 	public void testCustomErrorResponse() {
+		log.info("start");
 		CustomErrorResponse customErrorResponse = new CustomErrorResponse();
 		assertNotNull(customErrorResponse);
+		log.info("end");
 	}
 
 	@Test
 	public void testCustomErrorResponseParameterized() {
-
+		log.info("start");
 		CustomErrorResponse customErrorResponse = new CustomErrorResponse(LocalDateTime.now(), HttpStatus.OK, "Message",
 				"reason");
 		assertNotNull(customErrorResponse);
+		log.info("end");
 
 	}
 
 	@Test
 	public void testToStringMethod() {
-
+		log.info("start");
 		CustomErrorResponse customErrorResponse = new CustomErrorResponse(LocalDateTime.now(), HttpStatus.OK, "Message",
 				"reason");
 		assertEquals(customErrorResponse.toString(), customErrorResponse.toString());
+		log.info("end");
 
 	}
 
 	@Test
 	public void testGetStatus() {
-
+		log.info("start");
 		CustomErrorResponse customErrorResponse = new CustomErrorResponse();
 		customErrorResponse.setStatus(HttpStatus.OK);
 		assertEquals(HttpStatus.OK, customErrorResponse.getStatus());
+		log.info("end");
 
 	}
 
 	@Test
 	public void testGetMessage() {
-
+		log.info("start");
 		CustomErrorResponse customErrorResponse = new CustomErrorResponse();
 		customErrorResponse.setMessage("Message");
 		assertEquals("Message", customErrorResponse.getMessage());
+		log.info("end");
 
 	}
 

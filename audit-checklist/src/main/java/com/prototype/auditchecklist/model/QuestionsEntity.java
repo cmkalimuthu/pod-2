@@ -1,7 +1,5 @@
 package com.prototype.auditchecklist.model;
 /**
-
- * @version 1.8
  * This class is an entity which we will be storing in the database.
  *  
  */

@@ -1,11 +1,9 @@
 package com.prototype.auditauthentication.model;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
-import org.springframework.core.env.Environment;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -19,38 +17,43 @@ import org.springframework.test.context.junit4.SpringRunner;
 import lombok.extern.slf4j.Slf4j;
 
 @RunWith(SpringRunner.class)
-@ContextConfiguration @Slf4j
+@ContextConfiguration
+@Slf4j
 public class UserCredentialsTest {
 
 	UserCredentials loginCredential = new UserCredentials();
 
-	@Mock
-	Environment env;
 	@Test
 	public void testUserLoginCredentialAllConstructor() {
+		log.info("start");
 		UserCredentials credential = new UserCredentials("audit1", "password1");
 		assertEquals(credential.getUserId(), "audit1");
+		log.info("end");
 	}
 
 	@Test
 	public void testGetUid() {
-
+		log.info("start");
 		loginCredential.setUserId("audit1");
 		assertEquals(loginCredential.getUserId(), "audit1");
+		log.info("end");
 	}
 
 	@Test
 	public void testUserPassword() {
+		log.info("start");
 		loginCredential.setPassword("audit1");
 		assertEquals(loginCredential.getPassword(), "audit1");
+		log.info("end");
 
 	}
 
 	@Test
 	public void testoString() {
-
+		log.info("start");
 		String string = loginCredential.toString();
 		assertEquals(loginCredential.toString(), string);
+		log.info("end");
 
 	}
 

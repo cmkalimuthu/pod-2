@@ -1,5 +1,10 @@
 package com.prototype.auditseverity.feignclients;
 
+
+/**
+ * 
+ * This feign client is used to call methods of  Audit Benchmark microservice
+ */
 import java.util.List;
 
 import org.springframework.cloud.openfeign.FeignClient;

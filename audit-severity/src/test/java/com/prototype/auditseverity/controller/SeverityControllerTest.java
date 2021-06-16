@@ -1,18 +1,16 @@
 package com.prototype.auditseverity.controller;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ContextConfiguration;
@@ -21,17 +19,18 @@ import org.springframework.test.context.junit4.SpringRunner;
 import com.prototype.auditseverity.feignclients.AuditBenchmarkFeign;
 import com.prototype.auditseverity.feignclients.AuditCheckListFeign;
 import com.prototype.auditseverity.feignclients.AuthClient;
-import com.prototype.auditseverity.model.AuditDetails;
 import com.prototype.auditseverity.model.AuditRequest;
-import com.prototype.auditseverity.model.AuditResponse;
 import com.prototype.auditseverity.model.QuestionsEntity;
 import com.prototype.auditseverity.pojo.AuditBenchmark;
 import com.prototype.auditseverity.pojo.AuditType;
 import com.prototype.auditseverity.service.RequestResponseService;
 import com.prototype.auditseverity.service.TokenService;
 
+import lombok.extern.slf4j.Slf4j;
+
 @RunWith(SpringRunner.class)
 @ContextConfiguration
+@Slf4j
 public class SeverityControllerTest {
 
 	@Mock
@@ -62,6 +61,7 @@ public class SeverityControllerTest {
 
 	@Test
 	public void testExecutionStatus() {
+		log.info("start");
 		List<QuestionsEntity> questionsEntity = new ArrayList<>();
 		questionsEntity.add(new QuestionsEntity(1, "Internal", "ABC", "No"));
 		questionsEntity.add(new QuestionsEntity(2, "Internal", "DEF", "No"));
@@ -81,9 +81,7 @@ public class SeverityControllerTest {
 		when(tokenService.checkTokenValidity("token")).thenReturn(true);
 		when(auditBenchmarkFeign.getBenchMark("token")).thenReturn(responseEntity);
 		when(checklistFeign.getQuestions("token", auditType)).thenReturn(questionsList);
-
-		AuditResponse auditResponse = new AuditResponse("green","action.no");
-
+		log.info("end");
 
 	}
 

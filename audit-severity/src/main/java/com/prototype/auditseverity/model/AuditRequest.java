@@ -1,5 +1,9 @@
 package com.prototype.auditseverity.model;
 
+/**
+ * This class is an entity which we will be storing the audit request in the database.
+ *  
+ */
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;

@@ -14,7 +14,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 import lombok.extern.slf4j.Slf4j;
 
 @RunWith(SpringRunner.class)
-@ContextConfiguration @Slf4j
+@ContextConfiguration
+@Slf4j
 public class GlobalErrorHandlerTest {
 
 	@InjectMocks
@@ -22,33 +23,44 @@ public class GlobalErrorHandlerTest {
 
 	@Mock
 	Environment env;
+
 	@Test
 	public void contextLoads() {
 		assertNotNull(handler);
 	}
-	
+
 	@Test
 	public void testhandelWrongDateFormateException() {
+		log.info("start");
 		assertNotNull(handler.handleIdNotFoundexception(new LoginFailedException()));
+		log.info("end");
 	}
-	
+
 	@Test
 	public void testhandelWrongDateFormateExceptionThrowable() {
+		log.info("start");
 		assertNotNull(handler.handleIdNotFoundexception(new LoginFailedException(new Throwable())));
+		log.info("end");
 	}
-	
+
 	@Test
 	public void testhandelWrongDateFormateExceptionmsg() {
+		log.info("start");
 		assertNotNull(handler.handleIdNotFoundexception(new LoginFailedException("message")));
+		log.info("end");
 	}
-	
+
 	@Test
 	public void testhandelWrongDateFormateExceptionmsgThrowable() {
-		assertNotNull(handler.handleIdNotFoundexception(new LoginFailedException("msg",new Throwable())));
+		log.info("start");
+		assertNotNull(handler.handleIdNotFoundexception(new LoginFailedException("msg", new Throwable())));
+		log.info("end");
 	}
-	
+
 	@Test
 	public void testhandelWrongDateFormateExceptionmsgThrowtrue() {
-		assertNotNull(handler.handleIdNotFoundexception(new LoginFailedException("msg",new Throwable(),true,true)));
+		log.info("start");
+		assertNotNull(handler.handleIdNotFoundexception(new LoginFailedException("msg", new Throwable(), true, true)));
+		log.info("end");
 	}
 }

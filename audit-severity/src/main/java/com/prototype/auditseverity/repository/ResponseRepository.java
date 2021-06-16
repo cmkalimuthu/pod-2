@@ -5,7 +5,13 @@ import org.springframework.stereotype.Repository;
 
 import com.prototype.auditseverity.model.AuditResponse;
 
+/**
+ * 
+ * This interface communicates with db to fetch the audit response details
+ *
+ */
+
 @Repository
-public interface ResponseRepository extends JpaRepository<AuditResponse, Integer>{
+public interface ResponseRepository extends JpaRepository<AuditResponse, Integer> {
 
 }
