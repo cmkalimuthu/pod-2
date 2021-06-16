@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.prototype.auditseverity.feignclients.AuditBenchmarkFeign;
+import com.prototype.auditseverity.feignclients.AuditCheckListFeign;
 import com.prototype.auditseverity.model.AuditRequest;
 import com.prototype.auditseverity.model.AuditResponse;
 import com.prototype.auditseverity.model.QuestionsEntity;
@@ -27,6 +29,12 @@ public class SeverityController {
 
 	@Autowired
 	Environment env;
+	
+	@Autowired
+	AuditBenchmarkFeign auditBenchmarkFeign;
+	
+	@Autowired
+	AuditCheckListFeign auditCheckListFeign;
 
 	@Autowired
 	TokenService tokenService;
@@ -40,7 +48,7 @@ public class SeverityController {
 		ResponseEntity<?> responseEntity = null;
 		List<QuestionsEntity> questionsList = null;
 		if (tokenService.checkTokenValidity(token)) {
-			List<AuditBenchmark> benchmarkList = requestResponseService.getAuditBenchmark(token).getBody();
+			List<AuditBenchmark> benchmarkList = auditBenchmarkFeign.getBenchMark(token).getBody();
 			for (AuditBenchmark benchmark : benchmarkList) {
 				if (benchmark.getAuditType().equalsIgnoreCase(request.getAuditDetails().getAuditType())) {
 					actualNos = benchmark.getNoOfnos();
@@ -50,7 +58,7 @@ public class SeverityController {
 			AuditResponse response = null;
 			System.out.println("request "+request.toString());
 			AuditType auditType = new AuditType(request.getAuditDetails().getAuditType());
-			questionsList = requestResponseService.getAllQuestions(token, auditType).getBody();
+			questionsList = auditCheckListFeign.getQuestions(token, auditType).getBody();
 
 			for (QuestionsEntity qs1 : questionsList) {
 				System.out.println("inside questions" + qs1);

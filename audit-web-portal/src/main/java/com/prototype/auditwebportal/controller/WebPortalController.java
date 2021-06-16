@@ -34,13 +34,14 @@ import com.prototype.auditwebportal.model.User;
 
 @Controller
 public class WebPortalController {
-	
-	 // This class is handling all the end points for Audit Checklist, Audit Authentication and Audit Severity microservice. 
-	
-	 // AuthClient is used to verify the token.
-	 // AuditCheckListProxy is to call  methods from other  AuditCheckList microservice.
-	 // AuditSeverityProxy is to call  methods from other  AuditSeverity microservice.
 
+	// This class is handling all the end points for Audit Checklist, Audit
+	// Authentication and Audit Severity microservice.
+
+	// AuthClient is used to verify the token.
+	// AuditCheckListProxy is to call methods from other AuditCheckList
+	// microservice.
+	// AuditSeverityProxy is to call methods from other AuditSeverity microservice.
 
 	@Autowired
 	AuthClient authClient;
@@ -69,7 +70,8 @@ public class WebPortalController {
 //	}
 //	
 	/*
-	 * This method returns a form to fill details for type of Audit to do and other project details.
+	 * This method returns a form to fill details for type of Audit to do and other
+	 * project details.
 	 */
 	@PostMapping("/home")
 	public String getHome(@ModelAttribute("user") User userCredentials, HttpServletRequest request, ModelMap map) {
@@ -90,7 +92,8 @@ public class WebPortalController {
 	}
 
 	/*
-	 * This method gets audit checklist from auditChecklist microservice and redirects to questions 
+	 * This method gets audit checklist from auditChecklist microservice and
+	 * redirects to questions
 	 */
 	@PostMapping("/AuditCheckListQuestions")
 	public String getResponses(@ModelAttribute("projectDetails") ProjectDetails projectDetails,
@@ -109,9 +112,13 @@ public class WebPortalController {
 			if (e.getMessage().contains("invalid audit type")) {
 				return "redirect:/internalServerError";
 			}
+
 		} catch (Exception e) {
 
-			return "forbidden";
+			if (e.getMessage().contains("Access Denied"))
+				return "tokenExpiredPage";
+
+			return "internalServerError";
 
 		}
 
@@ -145,18 +152,19 @@ public class WebPortalController {
 		} catch (Exception e) {
 			if (e.getMessage().contains("the token is expired and not valid anymore"))
 				return "tokenExpiredPage";
-			
+
 			return "forbidden";
 		}
 		if (authResponse == null) {
 			return "internalServerError";
-			
+
 		}
 		return "questions";
 
 	}
 
-	/* redirects to status page
+	/*
+	 * redirects to status page
 	 */
 	@PostMapping("/questions")
 	public String getResponses(@ModelAttribute("questions") Questions questions, HttpSession session) {
@@ -174,20 +182,20 @@ public class WebPortalController {
 				return "tokenExpiredPage";
 			if (e.getMessage().contains("Authentication Failed. Username or Password not valid."))
 				return "authFailed";
-			if(authResponse==null || responseEntity==null) {
-				return "tokenExpiredPage";
+			if (authResponse == null || responseEntity == null) {
+				return "internalServerError";
 
 			}
 
-
-			return "redirect:/internalServerError";
+			return "forbidden";
 		}
 		AuditDetails auditDetails = new AuditDetails(questions.getQuestionsEntity().get(0).getAuditType(), new Date());
 		auditRequest.setAuditDetails(auditDetails);
 		return "redirect:/status";
 	}
 
-	/* return  status page
+	/*
+	 * return status page
 	 */
 	@GetMapping("/status")
 	public String getProjectExecutionStatus(HttpSession request, ModelMap map) {
@@ -199,8 +207,10 @@ public class WebPortalController {
 		} catch (Exception e) {
 			if (e.getMessage().contains("the token is expired and not valid anymore"))
 				return "tokenExpiredPage";
+			else if (e.getMessage().contains("Access Denied"))
+				return "forbidden";
 
-			return "redirect:/internalServerError";
+			return "internalServerError";
 		}
 		map.addAttribute("auditResponse", auditResponse);
 		return "status";
@@ -216,18 +226,21 @@ public class WebPortalController {
 		return "internalServerError";
 
 	}
-	
+
 	/*
 	 * return login page when user log outs of the session
 	 */
 
 	@GetMapping(value = "/logout")
-	public String logout(HttpServletRequest request,HttpServletResponse response) {
-		response.setHeader("Cache-Control","no-cache"); //Forces caches to obtain a new copy of the page from the origin server
-		response.setHeader("Cache-Control","no-store"); //Directs caches not to store the page under any circumstance
-		response.setDateHeader("Expires", 0); //Causes the proxy cache to see the page as "stale"
-		response.setHeader("Pragma","no-cache"); 
+	public String logout(HttpServletRequest request, HttpServletResponse response) {
 		request.getSession().invalidate();
+		request.getSession().setAttribute("token", null);
+		response.setHeader("Cache-Control", "no-cache"); // Forces caches to obtain a new copy of the page from the
+															// origin server
+		response.setHeader("Cache-Control", "no-store"); // Directs caches not to store the page under any circumstance
+		response.setDateHeader("Expires", 0); // Causes the proxy cache to see the page as "stale"
+		response.setHeader("Pragma", "no-cache");
+
 		return "redirect:/login-page";
 	}
 

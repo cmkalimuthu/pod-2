@@ -35,9 +35,9 @@ public class AuthResponseTest {
 	@Test
 	public void testUid()
 	{
-		
-		authResponse.setUid("audit1");
-		assertEquals("audit1" , authResponse.getUid() );
+		AuthResponse response=new AuthResponse();
+		response.setUid("audit1");
+		assertEquals("audit1" , response.getUid() );
 	}
 	/**
 	 * 
@@ -48,8 +48,8 @@ public class AuthResponseTest {
 	public void testIsValid()
 	{
 	
-		authResponse.setValid(true);
-		assertEquals( true , authResponse.isValid());
+		authResponse.setValid(false);
+		assertEquals( false , authResponse.isValid());
 	}
 	/**
 	 * 

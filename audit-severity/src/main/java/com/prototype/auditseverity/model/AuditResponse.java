@@ -30,5 +30,10 @@ public class AuditResponse {
 	@Column(name="ActionDuration")
 	private String duration;
 	
+	public AuditResponse(String executionStatus, String duration) {
+		super();
+		this.executionStatus = executionStatus;
+		this.duration = duration;
+	}
 
 }

@@ -42,16 +42,4 @@ public class RequestResponseService {
 		return responseRepository.save(response);
 	}
 	
-	public ResponseEntity<List<QuestionsEntity>> getAllQuestions(String token,AuditType auditType){
-	
-	 ResponseEntity<List<QuestionsEntity>> questions = auditCheckListFeign.getQuestions(token,auditType);
-		return questions;
-		
-	
-		
-	}
-	public ResponseEntity<List<AuditBenchmark>> getAuditBenchmark(String token){
-		 ResponseEntity<List<AuditBenchmark>> benchmarks = auditBenchmarkFeign.getBenchMark(token);
-		return benchmarks;
-	}
 }
