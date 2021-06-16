@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import com.prototype.auditwebportal.model.AuditRequest;
 import com.prototype.auditwebportal.model.AuditResponse;
 
+// This feign client is used to call methods of Audit severity microservice
+
 
 @FeignClient(url="${fos.severity}",name="audit-severity")
 public interface AuditSeverityProxy {

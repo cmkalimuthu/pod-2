@@ -8,6 +8,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+/*
+ * This is a POJO class used to store audit details entered by Project Manager/User
+ */
 @Data
 @Getter
 @Setter

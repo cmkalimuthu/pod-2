@@ -11,6 +11,8 @@ import com.prototype.auditwebportal.model.ProjectManager;
 import com.prototype.auditwebportal.model.User;
 
 
+// This feign client is used to call methods of Audit authentication microservice
+
 @FeignClient(url = "${fos.auth}", name = "audit-auth")
 public interface AuthClient {
 	

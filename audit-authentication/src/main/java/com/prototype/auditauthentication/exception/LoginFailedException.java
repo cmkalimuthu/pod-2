@@ -1,6 +1,12 @@
 package com.prototype.auditauthentication.exception;
 
 import lombok.NoArgsConstructor;
+/**
+This class is used for handling exception. When the user provides
+*          wrong credentials then this exception will be thrown. Here we are
+*          extending {@link RuntimeException} which is an unchecked exception
+*
+*/
 
 @SuppressWarnings("serial")
 @NoArgsConstructor

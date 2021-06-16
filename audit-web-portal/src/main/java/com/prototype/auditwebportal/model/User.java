@@ -6,6 +6,11 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+/**
+
+ * 		This is Model Class for user credentials
+ *
+ */
 @Getter
 @Setter
 @NoArgsConstructor

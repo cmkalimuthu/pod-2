@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import com.prototype.auditwebportal.model.AuditType;
 import com.prototype.auditwebportal.model.QuestionsEntity;
 
+// This feign client is used to call methods of Audit Checklist microservice
+
 @FeignClient(url = "${fos.checklist}", name = "audit-checklist")
 public interface AuditCheckListProxy {
 	

@@ -6,7 +6,11 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+/**
 
+ * 		This is Pojo Class for QuestionsEntity
+ *
+ */
 @Data
 @Getter
 @Setter

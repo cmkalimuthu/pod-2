@@ -34,6 +34,13 @@ import com.prototype.auditwebportal.model.User;
 
 @Controller
 public class WebPortalController {
+	
+	 // This class is handling all the end points for Audit Checklist, Audit Authentication and Audit Severity microservice. 
+	
+	 // AuthClient is used to verify the token.
+	 // AuditCheckListProxy is to call  methods from other  AuditCheckList microservice.
+	 // AuditSeverityProxy is to call  methods from other  AuditSeverity microservice.
+
 
 	@Autowired
 	AuthClient authClient;
@@ -47,6 +54,9 @@ public class WebPortalController {
 	@Autowired
 	AuditSeverityProxy auditSeverityProxy;
 
+	/*
+	 * This is method which returns login page
+	 */
 	@GetMapping("/login-page")
 	public String loginPage(@ModelAttribute User user) {
 
@@ -58,6 +68,9 @@ public class WebPortalController {
 //		return "forbidden";
 //	}
 //	
+	/*
+	 * This method returns a form to fill details for type of Audit to do and other project details.
+	 */
 	@PostMapping("/home")
 	public String getHome(@ModelAttribute("user") User userCredentials, HttpServletRequest request, ModelMap map) {
 		System.out.println(userCredentials.getUserId() + " " + userCredentials.getPassword());
@@ -76,6 +89,9 @@ public class WebPortalController {
 		}
 	}
 
+	/*
+	 * This method gets audit checklist from auditChecklist microservice and redirects to questions 
+	 */
 	@PostMapping("/AuditCheckListQuestions")
 	public String getResponses(@ModelAttribute("projectDetails") ProjectDetails projectDetails,
 			@ModelAttribute("auditType") AuditType auditType, RedirectAttributes redirectAttributes,
@@ -115,6 +131,9 @@ public class WebPortalController {
 
 	}
 
+	/*
+	 * This methods returns the questions page
+	 */
 	@GetMapping("/questions")
 	public String getQuestions(@ModelAttribute("questions") Questions questions,
 			@ModelAttribute("auditType") AuditType auditType, HttpSession session, ModelMap map) {
@@ -137,6 +156,8 @@ public class WebPortalController {
 
 	}
 
+	/* redirects to status page
+	 */
 	@PostMapping("/questions")
 	public String getResponses(@ModelAttribute("questions") Questions questions, HttpSession session) {
 		ResponseEntity<?> authResponse = null;
@@ -166,6 +187,8 @@ public class WebPortalController {
 		return "redirect:/status";
 	}
 
+	/* return  status page
+	 */
 	@GetMapping("/status")
 	public String getProjectExecutionStatus(HttpSession request, ModelMap map) {
 		AuditResponse auditResponse = null;
@@ -184,12 +207,19 @@ public class WebPortalController {
 
 	}
 
+	/*
+	 * return internal server error page when user when 405 occurs
+	 */
 	@GetMapping("/internalServerError")
 	public String internalError(HttpServletRequest request) {
 		request.getSession().invalidate();
 		return "internalServerError";
 
 	}
+	
+	/*
+	 * return login page when user log outs of the session
+	 */
 
 	@GetMapping(value = "/logout")
 	public String logout(HttpServletRequest request,HttpServletResponse response) {

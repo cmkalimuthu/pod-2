@@ -17,16 +17,38 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.SignatureException;
+/**
+*
+* This class is used to intercept every method. It extends class
+*          {@link OncePerRequestFilter} that aims to guarantee a single
+*          execution per request dispatch, on any servlet container. It
+*          provides a doFilterInternalmethod with HttpServletRequest and
+*          HttpServletResponse arguments.
+*
+* HttpServletRequest
+* HttpServletResponse
+*/
 
 @Component
 public class JwtRequestFilter extends OncePerRequestFilter {
-
+	/**
+	 * This holds the object of type {@link JwtUtil} class which will be injected
+	 * automatically because of the annotation autowired.
+	 */
 	@Autowired
 	private JwtUtil jwtUtil;
-
+	/**
+	 * This holds the object of type {@link ManagerService} class which will
+	 * be injected automatically because of the annotation autowired.
+	 */
 	@Autowired
 	ManagerService managerService;
 
+	/**
+	 * This method guaranteed to be just invoked once per request within a single
+	 * request thread.
+	 */
+	
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {

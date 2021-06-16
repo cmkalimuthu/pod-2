@@ -16,17 +16,43 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import com.prototype.auditauthentication.service.JwtRequestFilter;
 import com.prototype.auditauthentication.service.ManagerService;
 
-
+/**
+This class is used for the security configuration. It extends the
+*          class WebSecurityConfigurerAdapter It will take care of the
+*          authentication and authorization based on the user credentials.
+*
+*/
 
 @SuppressWarnings("deprecation")
 @EnableWebSecurity
 public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
 	
+	/**
+	 * This is a private field of class {@link ManagerService}
+	 * {@link ManagerService} class is used to load the user credentials
+	 * from the database. Based on that database fetched user credentials
+	 * authentication will be performed
+	 */
+	
 	@Autowired
 	private ManagerService managerService;
 	
+	/**
+	 * This is a private field of class {@link JwtRequestFilter} This class extends
+	 * {@link OncePerRequestFilter} so every request will first hit this filter
+	 */
+	
 	@Autowired
 	private JwtRequestFilter jwtRequestFilter;
+	
+	/**
+	 * This methods used to override the credentials which spring automatically
+	 * generates By using {@link AuthenticationManagerBuilder} object we are
+	 * overriding the security credentials with our own given credentials It will
+	 * call the userDetailsService method on the
+	 * {@link AuthenticationManagerBuilder} class object and this method is present
+	 * in class {@link AuthenticationManagerBuilder}
+	 */
 	
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -35,7 +61,12 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
 		auth.userDetailsService(managerService);
 	
 	}
-
+	
+	/**
+	 * This method is used to inject a {@link AuthenticationManager} type bean We
+	 * are annotating this method with @Bean. @Bean annotation tells that a method
+	 * produces a bean to be managed by the Spring container.
+	 */
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {

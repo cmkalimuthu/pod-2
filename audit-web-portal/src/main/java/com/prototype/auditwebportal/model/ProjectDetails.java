@@ -5,7 +5,9 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
+/**
+ * This is a POJO class used to store the Project related info filled by user
+ */
 @Getter
 @Setter
 @NoArgsConstructor

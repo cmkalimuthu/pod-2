@@ -2,6 +2,13 @@ package com.prototype.auditauthentication.exception;
 
 import io.jsonwebtoken.ExpiredJwtException;
 
+/**
+This class is used for handling exception. When the token
+*          expires then this exception will be thrown. Here we are
+*          extending {@link ExpiredJwtException} 
+*
+*/
+
 public class TokenExpiredException extends ExpiredJwtException{
 
 	private static final long serialVersionUID = 1L;

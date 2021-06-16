@@ -7,7 +7,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-
+/*
+ * This is a POJO class used to store the Audit related info and execution status
+ */
 @Data
 @Setter
 @Getter

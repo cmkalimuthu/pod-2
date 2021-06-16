@@ -8,6 +8,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+/*
+ * This is a class used to store the questions details
+
+ */
 @Data
 @Getter
 @Setter

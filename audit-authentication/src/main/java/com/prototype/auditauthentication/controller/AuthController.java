@@ -18,17 +18,40 @@ import com.prototype.auditauthentication.service.JwtUtil;
 import com.prototype.auditauthentication.service.ManagerService;
 
 import lombok.extern.slf4j.Slf4j;
+/**
+This class is having all the endpoints related to authorization
+*          purpose. For getting the token and validating the token this class
+*          willbe used.
+*
+*/
 
 @RestController
 @Slf4j
 public class AuthController {
-
+	
+	/**
+	 * This is a private field of type {@link ManagerService} class which is
+	 * used to fetch the user credentials from the database
+	 */
 	@Autowired
 	ManagerService managerService;
-
+	
+	/**
+	 * This is a private field of type {@link JwtUtil} class which provides the
+	 * utilities for the token like get token, validate token, expiration time etc.
+	 */
 	@Autowired
 	JwtUtil jwtUtil;
-
+	
+	/**
+	 * This method is used to check the credentials whether the provided credentials
+	 * are correct or not. For this we will call authenticate method. If user
+	 * credentials are correct then we will fetch the data from database based on
+	 * userid and return it to the user with a token
+	 * 
+	 
+	 */
+	
 	@PostMapping("/login")
 	public ResponseEntity<?> login(@RequestBody UserCredentials userCredentials) throws Exception {
 
@@ -46,6 +69,12 @@ public class AuthController {
 		}
 	}
 
+	/**
+	 * This method is used to check  whether the provided token is 
+	 * valid or not. For this we will call validate method. If token 
+	 * is valid then it will return the auth response 
+	 */
+	
 	@GetMapping(value = "/validate")
 	public ResponseEntity<?> getValidity(@RequestHeader("Authorization") String token) {
 		token = token.substring(7);
