@@ -26,8 +26,8 @@ import lombok.extern.slf4j.Slf4j;
 
 /**
  * 
- * This class is handling all the end points for Audit Checklist microservice.
- * This controller has mappings as- postmapping-auditSeverity()
+ * This class is handling all the end points for Audit Checklist and audit benchmark microservices.
+ * This controller has mappings as- postmapping-getExecutionStatus()
  *
  */
 

@@ -10,7 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 public class AuditAuthenticationApplicationTests {
 
 	@Mock
-	AuditAuthenticationApplication application;
+	AuditAuthenticationApplication application=new AuditAuthenticationApplication();
 
 	@Test
 	void contextLoads() {

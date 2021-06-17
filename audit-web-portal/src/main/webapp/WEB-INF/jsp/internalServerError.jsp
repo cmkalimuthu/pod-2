@@ -40,10 +40,9 @@ h1 {
 	<%@ include file="nav.jsp"%>
 	<div class="container">
 
-		<h1 class="m-5 text-center display-3" style="color: black">Internal
-			Server Error</h1>
+		<h1 class="m-5 text-center display-5" style="color: black">Something went wrong please login again !!</h1>
 		<div class="container">
-			<p class="text-center">Something went wrong please login again !!</p>
+			<p class="text-center"></p>
 			<a class="btn btn-success text-center"
 				href="http://localhost:8084/login-page" style="margin-left: 500px;">login</a>
 		</div>

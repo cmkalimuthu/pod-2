@@ -79,7 +79,6 @@ public class WebPortalController {
 	public String getHome(@ModelAttribute("user") User userCredentials, HttpServletRequest request, ModelMap map) {
 		log.info("start");
 		log.info(userCredentials.toString());
-		System.out.println(userCredentials.getUserId() + " " + userCredentials.getPassword());
 		ResponseEntity<ProjectManager> token = null;
 		ProjectManager projectManager = null;
 		map.addAttribute("auditType", new AuditType());
@@ -187,7 +186,6 @@ public class WebPortalController {
 		List<QuestionsEntity> questionsEntity = questions.getQuestionsEntity();
 		try {
 			authResponse = authClient.getValidity(session.getAttribute("token").toString());
-			System.out.println("after submission " + questionsEntity);
 			responseEntity = auditCheckListProxy
 					.saveResponses(session.getAttribute("token").toString(), questionsEntity).getBody();
 
@@ -255,9 +253,9 @@ public class WebPortalController {
 	@GetMapping(value = "/logout")
 	public String logout(HttpServletRequest request, HttpServletResponse response) {
 		log.info("start");
-        HttpSession httpSession = request.getSession();
+		HttpSession httpSession = request.getSession();
 //        httpSession.removeAttribute("token");
-        httpSession.invalidate();
+		httpSession.invalidate();
 //		request.getSession().invalidate();
 		response.setHeader("Cache-Control", "no-cache"); // Forces caches to obtain a new copy of the page from the
 															// origin server
