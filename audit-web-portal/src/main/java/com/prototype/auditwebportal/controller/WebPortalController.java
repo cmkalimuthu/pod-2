@@ -59,18 +59,34 @@ public class WebPortalController {
 	/*
 	 * This is method which returns login page
 	 */
-	@GetMapping("/login-page")
+	@GetMapping("/loginPage")
 	public String loginPage(@ModelAttribute User user) {
 		log.info("start");
 		log.debug(user.getUserId());
 		return "login";
 	}
 
-//	@GetMapping("/home")
-//	public String home() {
-//		return "forbidden";
-//	}
-//	
+	/*
+	 * This is method which returns home page
+	 */
+	@GetMapping("/home")
+	public String home(HttpSession session, ModelMap map) {
+
+		map.addAttribute("auditType", new AuditType());
+		map.addAttribute("projectDetails", new ProjectDetails());
+		try {
+
+			authClient.getValidity(session.getAttribute("token").toString());
+
+		} catch (Exception e) {
+			log.info(e.getMessage());
+
+			return "forbidden";
+
+		}
+		return "home";
+	}
+
 	/*
 	 * This method returns a form to fill details for type of Audit to do and other
 	 * project details.
@@ -92,7 +108,7 @@ public class WebPortalController {
 			return "home";
 		} catch (Exception e) {
 			log.info(e.getMessage());
-			return "error-login";
+			return "errorLogin";
 		}
 
 	}
@@ -111,9 +127,8 @@ public class WebPortalController {
 		auditRequest.setManagerName(projectDetails.getManagerName());
 		auditRequest.setOwnerName(projectDetails.getOwnerName());
 		try {
-			System.out.println("audit type" + auditType);
+
 			questions = auditCheckListProxy.getQuestions(request.getAttribute("token").toString(), auditType).getBody();
-			System.out.println(questions);
 
 		} catch (IndexOutOfBoundsException e) {
 			log.info(e.getMessage());
@@ -131,7 +146,6 @@ public class WebPortalController {
 		}
 
 		for (QuestionsEntity question : questions) {
-			System.out.println("questions " + question);
 			if (question.getResponse() != null) {
 				question.setResponse(null);
 			}
@@ -142,6 +156,7 @@ public class WebPortalController {
 		System.out.println(questionslist.getQuestionsEntity());
 		redirectAttributes.addFlashAttribute("questions", questionslist);
 		redirectAttributes.addFlashAttribute("auditType", auditType);
+
 		log.info("end");
 		return "redirect:/questions";
 
@@ -149,7 +164,20 @@ public class WebPortalController {
 
 	/*
 	 * This methods returns the questions page
+	 * 
 	 */
+	@PostMapping("/edit")
+	public String questions(HttpSession session, AuditType auditType, RedirectAttributes redirectAttributes,
+			ProjectDetails projectDetails) {
+		log.debug(auditType.toString());
+		System.out.println(auditType);
+
+		redirectAttributes.addFlashAttribute("auditType", auditType);
+		redirectAttributes.addFlashAttribute("projectDetails", projectDetails);
+		return "redirect:/AuditCheckListQuestions";
+
+	}
+
 	@GetMapping("/questions")
 	public String getQuestions(@ModelAttribute("questions") Questions questions,
 			@ModelAttribute("auditType") AuditType auditType, HttpSession session, ModelMap map) {
@@ -161,8 +189,9 @@ public class WebPortalController {
 
 		} catch (Exception e) {
 			log.info(e.getMessage());
-			if (e.getMessage().contains("the token is expired and not valid anymore"))
+			if (e.getMessage().contains("the token is expired and not valid anymore")) {
 				return "tokenExpiredPage";
+			}
 
 			return "forbidden";
 		}
@@ -229,6 +258,11 @@ public class WebPortalController {
 			return "tokenExpiredPage";
 		}
 		map.addAttribute("auditResponse", auditResponse);
+		map.addAttribute("auditType", new AuditType());
+		ProjectDetails projectDetails = new ProjectDetails(auditResponse.getProjectName(),
+				auditResponse.getManagerName(), auditResponse.getOwnerName());
+		;
+		map.addAttribute("projectDetails", projectDetails);
 		log.info("end");
 		return "status";
 
@@ -263,7 +297,7 @@ public class WebPortalController {
 		response.setDateHeader("Expires", 0); // Causes the proxy cache to see the page as "stale"
 		response.setHeader("Pragma", "no-cache");
 		log.info("end");
-		return "redirect:/login-page";
+		return "redirect:/loginPage";
 	}
 
 }

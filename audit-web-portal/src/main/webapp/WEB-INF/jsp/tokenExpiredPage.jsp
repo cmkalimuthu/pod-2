@@ -22,7 +22,7 @@ body > div:nth-child(2) > div:nth-child(2) {
 	<div class="text-center container mt-4">
 		<img src="https://img.icons8.com/dusk/64/000000/expired.png"/>
 		<h1>Session Expired !!</h1>
-		<a href="login-page" class="btn btn-success">Login Again</a>
+		<a href="loginPage" class="btn btn-success">Login Again</a>
 	</div>
 
 

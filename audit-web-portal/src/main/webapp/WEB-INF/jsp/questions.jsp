@@ -19,7 +19,7 @@
 <title>Audit Questions</title>
 <style>
 body {
-	background: linear-gradient(to right, #090808, orange);
+	background: white;
 	/* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
@@ -30,6 +30,17 @@ form {
 h3 {
 	color: #FFF;
 }
+
+#btn {
+	width: 10%;
+	margin-left: 400px;
+}
+
+Element
+#questions {
+	width: 800px;
+	margin-left: 190px;
+}
 </style>
 
 </head>
@@ -38,10 +49,8 @@ h3 {
 	<%@ include file="nav.jsp"%>
 	<div class="container">
 
-		<h3 class="m-4 display-4 text-center">${auditType.getAuditType()}
+		<h3 class="m-4 display-4 text-center " style="color: black">${auditType.getAuditType()}
 			Audit Questions</h3>
-<%-- 			<c:choose>
-		<c:when test="${view == true}"> --%>
 		<form:form action="/questions" method="post"
 			modelAttribute="questions" class="px-5 py-4 border rounded">
 			<c:forEach var="emp" items="${questions.questionsEntity}"
@@ -61,8 +70,9 @@ h3 {
 								required="required" />
 						</div>
 					</div>
-					<form:label class="form-control"
-						path="questionsEntity[${status.index}].response">Yes</form:label>
+					&nbsp;&nbsp;&nbsp;
+					<form:label path="questionsEntity[${status.index}].response">Yes</form:label>
+					&nbsp;&nbsp;&nbsp;
 
 					<div class="input-group-prepend">
 						<div class="input-group-text">
@@ -70,19 +80,17 @@ h3 {
 								path="questionsEntity[${status.index}].response" value="NO" />
 						</div>
 					</div>
-					<form:label class="form-control"
-						path="questionsEntity[${status.index}].response">No</form:label>
+					&nbsp;&nbsp;&nbsp;
+					<form:label path="questionsEntity[${status.index}].response">No</form:label>
 
 
 				</div>
 
 			</c:forEach>
 			<input type="Submit" value="Submit"
-				class="btn btn-primary btn-block mt-3" />
+				class="btn btn-sm btn-primary btn-block mt-3 " id="btn"/>
 
 		</form:form>
-<%-- 		</c:when>
-		</c:choose> --%>
 	</div>
 
 

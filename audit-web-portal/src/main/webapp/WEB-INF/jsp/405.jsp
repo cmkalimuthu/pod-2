@@ -32,10 +32,7 @@ h1 {
 		<h1 class="m-5 text-center display-3" style="color: black">HTTP Status 405</h1>
 		<div class="container">
 			<p class="text-center">The request method does not support.</p>
-			<form method="post" action="home">
-				<input type="submit" class="btn btn-success text-center"
-					style="margin-left: 500px;" value="home"/>
-			</form>
+			<a class="btn btn-success text-center" href="/home" style="margin-left: 500px;">Home</a>
 		</div>
 
 

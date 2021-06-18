@@ -61,6 +61,9 @@ public class SeverityController {
 	public ResponseEntity<?> getExceutionStatus(@RequestHeader(name = "Authorization", required = true) String token,
 			@RequestBody AuditRequest request) {
 		log.info("start");
+		ResponseEntity<?> responseEntity = null;
+		List<QuestionsEntity> questionsList = null;
+		AuditResponse response = null;
 		int noNos = 0;
 		int actualNos = 0;
 		String managerName = request.getManagerName();
@@ -69,8 +72,7 @@ public class SeverityController {
 		Date auditDate = request.getAuditDetails().getAuditDate();
 		String ownerName = request.getOwnerName();
 
-		ResponseEntity<?> responseEntity = null;
-		List<QuestionsEntity> questionsList = null;
+
 		if (tokenService.checkTokenValidity(token)) {
 			List<AuditBenchmark> benchmarkList = auditBenchmarkFeign.getBenchMark(token).getBody();
 			for (AuditBenchmark benchmark : benchmarkList) {
@@ -79,31 +81,27 @@ public class SeverityController {
 				}
 
 			}
-			AuditResponse response = null;
-			System.out.println("request " + request.toString());
+			
 			AuditType auditType = new AuditType(request.getAuditDetails().getAuditType());
 			questionsList = auditCheckListFeign.getQuestions(token, auditType).getBody();
 
 			for (QuestionsEntity qs1 : questionsList) {
-				System.out.println("inside questions" + qs1);
-				System.out.println("questions " + qs1);
 				if (qs1.getAuditType().equals(auditType.getAuditType()) && qs1.getResponse().equals("NO")) {
 					noNos++;
 				}
 			}
-			System.out.println("actual no" + actualNos);
-			System.out.println("response nos" + noNos);
+
 			if (auditType.getAuditType().equals("Internal") && noNos <= actualNos) {
-				response = new AuditResponse(1, "green", "no action required", projectName, managerName, ownerName,
+				response = new AuditResponse(1, "Green", "No action required", projectName, managerName, ownerName,
 						auditType2, auditDate);
 			} else if (auditType.getAuditType().equals("Internal") && noNos > actualNos) {
-				response = new AuditResponse(2, "red", "Action to be taken in 2 weeks", projectName, managerName,
+				response = new AuditResponse(2, "Red", "Action to be taken in 2 weeks", projectName, managerName,
 						ownerName, auditType2, auditDate);
 			} else if (auditType.getAuditType().equals("SOX") && noNos <= actualNos) {
-				response = new AuditResponse(3, "green", "no action needed", projectName, managerName, ownerName,
+				response = new AuditResponse(3, "Green", "No action needed", projectName, managerName, ownerName,
 						auditType2, auditDate);
 			} else if (auditType.getAuditType().equals("SOX") && noNos > actualNos) {
-				response = new AuditResponse(4, "red", "Action to be taken in 1 weeks", projectName, managerName,
+				response = new AuditResponse(4, "Red", "Action to be taken in 1 weeks", projectName, managerName,
 						ownerName, auditType2, auditDate);
 			}
 			requestResponseService.saveResponse(response);

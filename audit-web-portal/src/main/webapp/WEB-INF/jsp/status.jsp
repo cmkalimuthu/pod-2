@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,22 +15,27 @@
 </head>
 <style>
 body {
-	background: linear-gradient(to right, orange,#9f5b5b);
+	background: white;
 	/* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
-td{
-background-color:white;
-border-width:5px; 
-}
-table,th{
-border-width:5px;
+
+td {
+	background-color: white;
+	border-width: 5px;
 }
 
+table, th {
+	border-width: 5px;
+}
 </style>
 <body>
 	<%@ include file="nav.jsp"%>
 	<div class="container justify-content-center">
-		<div align="center" style="margin-top: 250px;">
+		<h3 class="m-4 display-4 text-center " style="color: black">Audit
+			Status</h3>
+		<hr>
+		<div align="center" style="margin-top: 200px;">
+
 			<table border="1" cellpadding="5">
 				<tr>
 					<th>Project Name</th>
@@ -39,7 +45,8 @@ border-width:5px;
 					<th>Audit Date</th>
 					<th>Execution status</th>
 					<th>Remedial Action</th>
-					
+					<th></th>
+
 				</tr>
 
 				<tr>
@@ -48,12 +55,34 @@ border-width:5px;
 					<td>${auditResponse.getOwnerName()}</td>
 					<td>${auditResponse.getAuditType()}</td>
 					<td>${auditResponse.getAuditDate()}</td>
-					<td style=";color:white;padding: 10px;;background-color:${auditResponse.getExecutionStatus()}">${auditResponse.getExecutionStatus()}</td>
+					<td
+						style=";color:white;padding: 10px;;background-color:${auditResponse.getExecutionStatus()}">${auditResponse.getExecutionStatus()}</td>
 					<td>${auditResponse.getDuration()}</td>
+					<form:form action="/AuditCheckListQuestions"
+						modelAttribute="projectDetails" method="post">
+						<form:hidden path="projectName"
+							value="${auditResponse.getProjectName()}" />
+						<form:hidden path="managerName"
+							value="${auditResponse.getManagerName()}" />
+						<form:hidden path="ownerName"
+							value="${auditResponse.getOwnerName()}" />
+
+						<form:form modelAttribute="auditType"
+							action="/AuditCheckListQuestions">
+							<form:hidden path="auditType"
+								value="${auditResponse.getAuditType()}" />
+
+
+							<td><input type="submit" class="btn btn-info" value="edit" /></td>
+
+						</form:form>
+						</form:form>
 				</tr>
 
 			</table>
+			
 		</div>
+
 
 
 

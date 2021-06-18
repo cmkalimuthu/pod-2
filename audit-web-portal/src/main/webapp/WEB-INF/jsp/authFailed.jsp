@@ -41,7 +41,7 @@ h1 {
 		<div class="container">
 			<p class="text-center">Please login again !!</p>
 			<a class="btn btn-success text-center"
-				href="http://localhost:8084/login-page" style="margin-left: 500px;">login</a>
+				href="http://localhost:8084/loginPage" style="margin-left: 500px;">login</a>
 		</div>
 
 

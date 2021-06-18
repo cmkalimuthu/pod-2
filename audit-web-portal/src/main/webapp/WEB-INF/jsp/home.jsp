@@ -16,16 +16,34 @@
 <title>Project Details - Audit Management System</title>
 <style>
 body {
-	background: orange;
-	/* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+	backgroud-color: white;
 }
 
-form {
-	background: white;
+#projectDetails {
+	margin-left: 400px;
 }
 
-h1 {
-	color: #FFF;
+.btn {
+	margin: 70px;
+}
+
+#projectDetails {
+	width: 500px;
+	height: 450px;
+}
+
+#projectDetails {
+	/* margin-left: 400px; */
+	margin-left: 320px;
+}
+
+.btn {
+	margin:;
+	margin-left: 150px;
+}
+
+.required {
+	color: red;
 }
 </style>
 </head>
@@ -36,61 +54,64 @@ h1 {
 		<h1 class="m-3 text-center display-4" style="color: black">
 			<strong>PROJECT DETAILS</strong>
 		</h1>
+		<div class="form-group row">
+			<form:form action="/AuditCheckListQuestions"
+				modelAttribute="projectDetails" method="post"
+				class="px-5 py-4 border rounded">
 
-		<form:form action="/AuditCheckListQuestions"
-			modelAttribute="projectDetails" method="post"
-			class="px-5 py-4 border rounded">
+				<div class="form-group col-xs-2">
+					<form:label path="projectName">Project Name</form:label>
+					<span class="required">*</span>
+					<form:input path="projectName" required="required"
+						class="form-control" id="ProjectName"
+						oninvalid="this.setCustomValidity('fill the project name')"
+						oninput="this.setCustomValidity('')" />
 
-			<div class="form-group">
-				<form:label path="projectName">Project Name</form:label>
-				<form:input path="projectName" required="required"
-					class="form-control" id="ProjectName" />
 
-			</div>
-			<div class="form-group">
-				<form:label path="managerName">Project Manager Name</form:label>
-				<form:input path="managerName" required="required"
-					class="form-control" id="ProjectManagerName" />
-			</div>
-			<div class="form-group">
-				<form:label path="ownerName">Application Owner</form:label>
-				<form:input path="ownerName" required="required"
-					class="form-control" id="ApplicationOwnerName" />
-			</div>
-
-			<div class="form-group">
-				<label for="AuditType">Audit Type</label>
-				<form:form modelAttribute="auditType">
-					<div class="input-group">
-						<div class="input-group-prepend">
-							<div class="input-group-text">
-								<form:radiobutton path="auditType" required="required"
-									id="internal" value="Internal" name="audittype"
-									aria-label="Radio button for following text input" />
-							</div>
-						</div>
-						<label for="Internal" class="form-control"> Internal</label>
-
-						<div class="input-group-prepend">
-							<div class="input-group-text">
-								<form:radiobutton path="auditType" id="sox" value="SOX"
-									name="audittype"
-									aria-label="Radio button for following text input" />
-							</div>
-						</div>
-						<label for="SOX" class="form-control"> SOX</label>
+					<div class="form-group">
+						<form:label path="managerName">Project Manager Name</form:label>
+						<span class="required">*</span>
+						<form:input path="managerName" required="required"
+							class="form-control" id="ProjectManagerName" oninvalid="this.setCustomValidity('fill the manager name')"
+						oninput="this.setCustomValidity('')" />
 					</div>
-					<input type="submit" class="btn btn-success btn-block mt-3"
-						value="Submit">
-				</form:form>
-			</div>
+					<div class="form-group">
+						<form:label path="ownerName">Application Owner</form:label>
+						<span class="required">*</span>
+						<form:input path="ownerName" required="required"
+							class="form-control" id="ApplicationOwnerName" oninvalid="this.setCustomValidity('fill app owner name')"
+						oninput="this.setCustomValidity('')" />
+					</div>
+					<div class="form-group">
+						<label for="AuditType">Audit Type</label> <span class="required">*</span>
+						<form:form modelAttribute="auditType">
+							<div class="input-group">
+								<div class="input-group-prepend">
 
+									<form:radiobutton path="auditType" required="required"
+										id="internal" value="Internal" name="audittype"
+										aria-label="Radio button for following text input" oninvalid="this.setCustomValidity('fill audit type')"
+						oninput="this.setCustomValidity('')"/>
 
+									&nbsp; <label for="Internal"> Internal</label>
+								</div>
+								<div class="input-group-prepend">
+									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+									<form:radiobutton path="auditType" id="sox" value="SOX"
+										name="audittype"
+										aria-label="Radio button for following text input" />
 
+									&nbsp; <label for="SOX"> SOX</label>
+								</div>
+							</div>
+							<input type="submit" class="btn btn-success mt-3 "
+								style="left-margin: 80px" value="Submit">
+						</form:form>
 
-
-		</form:form>
-
+					</div>
+			</form:form>
+		</div>
+	</div>
 	</div>
 
 
