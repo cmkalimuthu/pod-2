@@ -1,14 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-    <fullyQualifiedTypeName name="org.springframework.web.servlet.mvc.support.RedirectAttributes"/>
-    <fullyQualifiedTypeName name="javax.servlet.http.HttpSession"/>
-    <fullyQualifiedTypeName name="java.util.List"/>
-    <fullyQualifiedTypeName name="java.util.ArrayList"/>
-    <fullyQualifiedTypeName name="com.prototype.auditwebportal.model.QuestionsEntity"/>
-    <fullyQualifiedTypeName name="com.prototype.auditwebportal.model.AuditType"/>
-    <fullyQualifiedTypeName name="com.prototype.auditwebportal.feignclients.AuditCheckListProxy"/>
-    <fullyQualifiedTypeName name="com.prototype.auditwebportal.model.Questions"/>
-    <fullyQualifiedTypeName name="com.prototype.auditwebportal.model.AuditDetails"/>
     <fullyQualifiedTypeName name="lombok.AllArgsConstructor"/>
     <fullyQualifiedTypeName name="lombok.NoArgsConstructor"/>
     <fullyQualifiedTypeName name="lombok.ToString"/>
@@ -29,7 +20,6 @@
     <fullyQualifiedTypeName name="com.prototype.auditchecklist.feignclients.AuthClient"/>
     <fullyQualifiedTypeName name="com.prototype.auditchecklist.service.TokenService"/>
     <fullyQualifiedTypeName name="com.prototype.auditchecklist.controller.ChecklistController"/>
-    <fullyQualifiedTypeName name="com.prototype.auditchecklist.pojo.AuditType"/>
     <fullyQualifiedTypeName name="com.prototype.auditchecklist.repository.ChecklistRepository"/>
     <fullyQualifiedTypeName name="com.prototype.auditchecklist.service.checklistService"/>
     <fullyQualifiedTypeName name="com.prototype.auditchecklist.model.QuestionsEntity"/>
@@ -46,18 +36,28 @@
     <fullyQualifiedTypeName name="feign.FeignException"/>
     <fullyQualifiedTypeName name="javax.servlet.http.HttpServletResponse"/>
     <fullyQualifiedTypeName name="com.prototype.auditauthentication.model.UserCredentials"/>
-    <fullyQualifiedTypeName name="com.prototype.auditseverity.model.AuditDetails"/>
     <fullyQualifiedTypeName name="com.prototype.auditseverity.model.AuditRequest"/>
     <fullyQualifiedTypeName name="com.prototype.auditseverity.service.RequestResponseService"/>
     <fullyQualifiedTypeName name="com.prototype.auditseverity.feignclients.AuditBenchmarkFeign"/>
     <fullyQualifiedTypeName name="org.springframework.beans.factory.annotation.Autowired"/>
     <fullyQualifiedTypeName name="com.prototype.auditseverity.feignclients.AuditCheckListFeign"/>
     <fullyQualifiedTypeName name="com.prototype.auditchecklist.pojo.AuthResponse"/>
-    <fullyQualifiedTypeName name="com.prototype.auditauthentication.AuditAuthenticationApplication"/>
     <fullyQualifiedTypeName name="com.prototype.auditauthentication.repository.ManagerRepo"/>
-    <fullyQualifiedTypeName name="org.springframework.security.core.userdetails.User"/>
     <fullyQualifiedTypeName name="org.springframework.security.core.userdetails.UserDetails"/>
     <fullyQualifiedTypeName name="java.util.Date"/>
     <fullyQualifiedTypeName name="lombok.extern.slf4j.Slf4j"/>
     <fullyQualifiedTypeName name="com.prototype.auditchecklist.exception.TokenExpiredException"/>
+    <fullyQualifiedTypeName name="com.prototype.auditchecklist.AuditChecklistApplication"/>
+    <fullyQualifiedTypeName name="com.prototype.auditchecklist.pojo.AuditType"/>
+    <fullyQualifiedTypeName name="com.prototype.auditauthentication.AuditAuthenticationApplication"/>
+    <fullyQualifiedTypeName name="com.prototype.auditbenchmark.AuditBenchmarkApplication"/>
+    <fullyQualifiedTypeName name="com.prototype.auditseverity.AuditSeverityApplication"/>
+    <fullyQualifiedTypeName name="org.mockito.InjectMocks"/>
+    <fullyQualifiedTypeName name="org.springframework.security.core.userdetails.UserDetailsService"/>
+    <fullyQualifiedTypeName name="org.springframework.security.test.context.support.WithMockUser"/>
+    <fullyQualifiedTypeName name="com.prototype.auditseverity.model.AuditDetails"/>
+    <fullyQualifiedTypeName name="com.prototype.auditseverity.pojo.AuditDetails"/>
+    <fullyQualifiedTypeName name="com.prototype.auditseverity.pojo.AuditRequest"/>
+    <fullyQualifiedTypeName name="org.springframework.security.core.userdetails.User"/>
+    <fullyQualifiedTypeName name="java.util.ArrayList"/>
 </qualifiedTypeNameHistroy>
