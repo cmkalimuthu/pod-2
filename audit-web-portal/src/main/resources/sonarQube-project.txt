@@ -1,0 +1,12 @@
+audit-checklist
+token b54cfb88be0d2edf5963518895ad333103160299(common for all)
+mvn sonar:sonar  -Dsonar.host.url=http://localhost:9000 -Dsonar.login=b54cfb88be0d2edf5963518895ad333103160299
+
+audit-authentication
+mvn sonar:sonar -Dsonar.host.url=http://localhost:9000 -Dsonar.login=b54cfb88be0d2edf5963518895ad333103160299
+
+audit-benchmark
+mvn sonar:sonar -Dsonar.host.url=http://localhost:9000 -Dsonar.login=b54cfb88be0d2edf5963518895ad333103160299
+
+audit-severity
+mvn sonar:sonar  -Dsonar.host.url=http://localhost:9000 -Dsonar.login=b54cfb88be0d2edf5963518895ad333103160299

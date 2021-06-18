@@ -1,0 +1,64 @@
+audit-authentication
+
+post 
+
+http://localhost:8083/login
+body:
+{
+    "userId":"audit1",
+    "password":"password1"
+}
+
+http://localhost:8083/validate
+body:
+{
+     "token":""
+}
+
+audit-checklist
+
+post
+
+http://localhost:8081/checklist
+body:
+{
+	"auditType":"Internal"
+}
+
+http://localhost:8081/save-response
+body:
+
+  {
+    "questionId": 1,
+    "auditType": "Internal",
+    "questions": "Have all Change requests followed SDLC before PROD move?",
+    "response": "YES"
+  }
+
+audit-benchmark
+Get
+http://localhost:8082/audit-benchmark
+body:
+{
+	"token":""
+}
+
+audit-severity
+post
+http://localhost:8080/execution-status
+
+body:
+{
+  "requestId": 1,
+  "auditDetails": {
+    "auditId": 1,
+    "auditType": "Internal",
+    "auditDate": "2021-06-17T08:28:57.369Z"
+  },
+  "projectName": "audit management",
+  "managerName": "hari",
+  "ownerName": "pod-2"
+}
+
+
+
