@@ -12,7 +12,17 @@
 	integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l"
 	crossorigin="anonymous">
 <title>Audit Response</title>
-</head>
+<script>
+    window.location.hash = "";
+
+    // Again because Google Chrome doesn't insert
+    // the first hash into the history
+    window.location.hash = ""; 
+
+    window.onhashchange = function(){
+        window.location.hash = "";
+    }
+</script>
 <style>
 body {
 	background: white;
@@ -28,8 +38,15 @@ table, th {
 	border-width: 5px;
 }
 </style>
-<body>
+
+
+</head>
+
+
+
+<body >
 	<%@ include file="nav.jsp"%>
+
 	<div class="container justify-content-center">
 		<h3 class="m-4 display-4 text-center " style="color: black">Audit
 			Status</h3>
@@ -76,11 +93,11 @@ table, th {
 							<td><input type="submit" class="btn btn-info" value="edit" /></td>
 
 						</form:form>
-						</form:form>
+					</form:form>
 				</tr>
 
 			</table>
-			
+
 		</div>
 
 
@@ -99,6 +116,7 @@ table, th {
 		src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"
 		integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF"
 		crossorigin="anonymous"></script>
+
 
 </body>
 </html>

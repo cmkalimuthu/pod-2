@@ -13,19 +13,31 @@
 	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
 	integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l"
 	crossorigin="anonymous">
-<title>forbidden </title>
+<title>forbidden</title>
+<script>
+	window.location.hash = "";
+
+	// Again because Google Chrome doesn't insert
+	// the first hash into the history
+	window.location.hash = "";
+
+	window.onhashchange = function() {
+		window.location.hash = "";
+	}
+</script>
 <style>
 body {
-	background:orange;
-	/* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-}
-html {
-  background-color: white;
+	background:white;
 }
 
-body > div:nth-child(2) > div:nth-child(2) {
-  padding: 10px;
+html {
+	background-color: white;
 }
+
+body>div:nth-child(2)>div:nth-child(2) {
+	padding: 10px;
+}
+
 h1 {
 	color: #FFF;
 }
@@ -33,16 +45,16 @@ h1 {
 </head>
 <body>
 
-	<%@ include file="nav.jsp" %>
 	<div class="container">
-       
-		<h1 class="m-5 text-center display-3" style="color:black">Forbidden</h1>
+
+		<h1 class="m-5 text-center display-3" style="color: black">Forbidden</h1>
 		<div class="container">
-		<p class="text-center">Access Denied !!</p>
-		<a class="btn btn-success text-center" href="http://localhost:8084/loginPage" style="margin-left:500px;">login</a>
+			<p class="text-center">Access Denied !!</p>
+			<a class="btn btn-success text-center"
+				href="/loginPage" style="margin-left: 500px;">login</a>
 		</div>
 
-		
+
 	</div>
 
 

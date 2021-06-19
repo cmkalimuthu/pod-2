@@ -14,6 +14,17 @@
 	integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l"
 	crossorigin="anonymous">
 <title>Project Details - Audit Management System</title>
+<script>
+	window.location.hash = "";
+
+	// Again because Google Chrome doesn't insert
+	// the first hash into the history
+	window.location.hash = "";
+
+	window.onhashchange = function() {
+		window.location.hash = "";
+	}
+</script>
 <style>
 body {
 	backgroud-color: white;
@@ -72,15 +83,17 @@ body {
 						<form:label path="managerName">Project Manager Name</form:label>
 						<span class="required">*</span>
 						<form:input path="managerName" required="required"
-							class="form-control" id="ProjectManagerName" oninvalid="this.setCustomValidity('fill the manager name')"
-						oninput="this.setCustomValidity('')" />
+							class="form-control" id="ProjectManagerName"
+							oninvalid="this.setCustomValidity('fill the manager name')"
+							oninput="this.setCustomValidity('')" />
 					</div>
 					<div class="form-group">
 						<form:label path="ownerName">Application Owner</form:label>
 						<span class="required">*</span>
 						<form:input path="ownerName" required="required"
-							class="form-control" id="ApplicationOwnerName" oninvalid="this.setCustomValidity('fill app owner name')"
-						oninput="this.setCustomValidity('')" />
+							class="form-control" id="ApplicationOwnerName"
+							oninvalid="this.setCustomValidity('fill app owner name')"
+							oninput="this.setCustomValidity('')" />
 					</div>
 					<div class="form-group">
 						<label for="AuditType">Audit Type</label> <span class="required">*</span>
@@ -90,8 +103,7 @@ body {
 
 									<form:radiobutton path="auditType" required="required"
 										id="internal" value="Internal" name="audittype"
-										aria-label="Radio button for following text input" oninvalid="this.setCustomValidity('fill audit type')"
-						oninput="this.setCustomValidity('')"/>
+										aria-label="Radio button for following text input" />
 
 									&nbsp; <label for="Internal"> Internal</label>
 								</div>

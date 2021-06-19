@@ -97,14 +97,16 @@ public class AuthController {
 		} catch (Exception e) {
 			res.setValid(false);
 			log.info("end");
-			log.info("exception ",e.getMessage());
+			log.info("exception ", e.getMessage());
 			System.out.println(e.getMessage());
-			if (e.getMessage().contains("the token is expired and not valid anymore"))
+			if (e.getMessage().contains("the token is expired and not valid anymore")) {
 				response = new ResponseEntity<String>("the token is expired and not valid anymore",
 						HttpStatus.FORBIDDEN);
-			if (e.getMessage().contains("Authentication Failed. Username or Password not valid"))
+			}
+			if (e.getMessage().contains("Authentication Failed. Username or Password not valid")) {
 				response = new ResponseEntity<String>("Authentication Failed. Username or Password not valid",
 						HttpStatus.FORBIDDEN);
+			}
 			response = new ResponseEntity<>(res, HttpStatus.FORBIDDEN);
 			return response;
 		}

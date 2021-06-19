@@ -14,10 +14,12 @@ import com.prototype.auditbenchmark.model.BenchMark;
 import com.prototype.auditbenchmark.service.TokenService;
 
 import lombok.extern.slf4j.Slf4j;
+
 /**
  * 
- * This class is handling all the end points for returning benchmark of acceptable no of NO's for a particular
- * audit type to  Audit Severity microservice. 
+ * This class is handling all the end points for returning benchmark of
+ * acceptable no of NO's for a particular audit type to Audit Severity
+ * microservice.
  * 
  * @see tokenService is to check token with auth microservice
  *
@@ -29,15 +31,19 @@ public class BenchMarkController {
 	@Autowired
 	TokenService tokenService;
 
+	final String tokenExpired = "the token is expired and not valid anymore";
+
 	/**
 	 * 
 	 * @param token - used to verfiy the token with auth service
-	 * @return response entity which is either List of questions or error caused in application
+	 * @return response entity which is either List of questions or error caused in
+	 *         application
 	 */
 
-	@GetMapping("/audit-benchmark")
+	@GetMapping("/benchmark")
 	public ResponseEntity<?> getBenchMark(@RequestHeader("Authorization") String token) {
 		log.info("start");
+		log.debug("token", token);
 		ArrayList<BenchMark> marksList = new ArrayList<>();
 		ResponseEntity<?> responseEntity = null;
 		marksList.add(new BenchMark("Internal", 3));
@@ -46,9 +52,10 @@ public class BenchMarkController {
 
 			responseEntity = new ResponseEntity<List<BenchMark>>(marksList, HttpStatus.OK);
 		} else {
-			log.error("token expired"); 
+			log.error("token expired");
 			log.info("end");
-			responseEntity = new ResponseEntity<String>("the token is expired and not valid anymore", HttpStatus.FORBIDDEN);
+			responseEntity = new ResponseEntity<String>(tokenExpired,
+					HttpStatus.FORBIDDEN);
 			return responseEntity;
 		}
 		return responseEntity;

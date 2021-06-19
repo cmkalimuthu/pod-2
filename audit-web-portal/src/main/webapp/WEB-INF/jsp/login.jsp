@@ -13,7 +13,24 @@
 <script src="https://kit.fontawesome.com/a81368914c.js"></script>
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<style><%@include file="/WEB-INF/css/style.css"%></style>
+<style>
+<%@ include file="/WEB-INF/css/style.css"%>
+</style>
+<script>
+    window.location.hash = "";
+
+    // Again because Google Chrome doesn't insert
+    // the first hash into the history
+    window.location.hash = ""; 
+
+    window.onhashchange = function(){
+        window.location.hash = "";
+    }
+    window.onload = function() {
+    	  document.getElementById('password').value = '';
+    	  document.getElementById('userId').value = '';
+    	  }
+</script>
 </head>
 <body>
 	<div class="heading">
@@ -34,7 +51,8 @@
 					</div>
 					<div class="div">
 						<h5>Username</h5>
-						<form:input path="userId" class="input" />
+						<form:input path="userId" class="input" required="required"
+							autocomplete="off" />
 					</div>
 				</div>
 				<div class="input-div pass">
@@ -44,8 +62,20 @@
 					</div>
 					<div class="div">
 						<h5>Password</h5>
-						<form:input type="password" path="password" class="input" />
+						<form:input type="password" path="password" class="input"
+							required="required" autocomplete="off" />
 					</div>
+				</div>
+				<div>
+					<c:choose>
+						<c:when test="${invalid !=null }">
+							<p style="color: red">Invalid Username/Password</p>
+						</c:when>
+						<c:otherwise>
+
+						</c:otherwise>
+					</c:choose>
+
 				</div>
 				<input type="submit" class="btn btn-success" value="Login">
 			</form:form>

@@ -14,6 +14,7 @@ import org.mockito.Mock;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.prototype.auditchecklist.exception.InvalidAuditTypeException;
 import com.prototype.auditchecklist.model.QuestionsEntity;
 import com.prototype.auditchecklist.repository.ChecklistRepository;
 
@@ -40,9 +41,10 @@ public class ChecklistServiceTest {
 	 * test to check whether it returns a list
 	 * 
 	 * @throws IndexOutOfBoundsException
+	 * @throws InvalidAuditTypeException 
 	 */
 	@Test
-	public void testGetQuestionsList() throws IndexOutOfBoundsException {
+	public void testGetQuestionsList() throws IndexOutOfBoundsException, InvalidAuditTypeException {
 		log.info("start");
 		List<QuestionsEntity> questions = new ArrayList<>();
 		questions.add(

@@ -16,8 +16,7 @@
 <title>error login</title>
 <style>
 body {
-	background: orange;
-	/* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+	background:white;
 }
 
 h1 {
@@ -26,7 +25,7 @@ h1 {
 </style>
 </head>
 <body>
-	<%@ include file="nav.jsp"%>
+
 	<div class="container">
 
 		<h1 class="m-5 text-center display-3" style="color: black">HTTP Status 405</h1>

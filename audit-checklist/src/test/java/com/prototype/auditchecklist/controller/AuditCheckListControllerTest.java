@@ -17,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.prototype.auditchecklist.exception.InvalidAuditTypeException;
 import com.prototype.auditchecklist.feignclients.AuthClient;
 import com.prototype.auditchecklist.model.QuestionsEntity;
 import com.prototype.auditchecklist.pojo.AuditType;
@@ -63,9 +64,10 @@ public class AuditCheckListControllerTest {
 
 	/**
 	 * To test testGetCheckList method
+	 * @throws InvalidAuditTypeException 
 	 */
 	@Test
-	public void testGetChecklist() {
+	public void testGetChecklist() throws InvalidAuditTypeException {
 		log.info("start");
 		ResponseEntity<?> responseEntity = null;
 		List<QuestionsEntity> questionsList = new ArrayList<QuestionsEntity>();

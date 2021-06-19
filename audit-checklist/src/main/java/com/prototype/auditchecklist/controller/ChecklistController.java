@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.prototype.auditchecklist.exception.InvalidAuditTypeException;
 import com.prototype.auditchecklist.model.QuestionsEntity;
 import com.prototype.auditchecklist.pojo.AuditType;
 import com.prototype.auditchecklist.service.TokenService;
@@ -45,29 +46,30 @@ public class ChecklistController {
 
 	@Autowired
 	TokenService tokenService;
+	
+	final String inValidAuditType="invalid audit type";
+	final String tokenExpired="the token is expired and not valid anymore";
 
 	@PostMapping("/checklist")
 	public ResponseEntity<?> getQuestions(@RequestHeader(name = "Authorization", required = true) String token,
 			@RequestBody AuditType auditType) {
+		log.info("start");
 		List<QuestionsEntity> questionsList = new ArrayList<>();
-		log.info("end");
 		ResponseEntity<?> responseEntity;
 		if (tokenService.checkTokenValidity(token)) {
-			System.out.println("In checklist" + auditType.getAuditType());
 			try {
 				questionsList = service.getQuestions(auditType.getAuditType());
-			} catch (IndexOutOfBoundsException e) {
-				responseEntity = new ResponseEntity<String>("invalid audit type", HttpStatus.INTERNAL_SERVER_ERROR);
+			} catch (InvalidAuditTypeException e) {
+				responseEntity = new ResponseEntity<String>(inValidAuditType, HttpStatus.INTERNAL_SERVER_ERROR);
 				return responseEntity;
 			}
 			responseEntity = new ResponseEntity<List<QuestionsEntity>>(questionsList, HttpStatus.OK);
-			System.out.println(questionsList);
 			return responseEntity;
 
 		} else {
 			log.error("token expired");
 			log.info("end");
-			responseEntity = new ResponseEntity<String>("the token is expired and not valid anymore",
+			responseEntity = new ResponseEntity<String>(tokenExpired,
 					HttpStatus.FORBIDDEN);
 			return responseEntity;
 		}
@@ -84,7 +86,7 @@ public class ChecklistController {
 	 *         into the database.
 	 * 
 	 */
-	@PostMapping("/save-response")
+	@PostMapping("/saveResponse")
 	public ResponseEntity<?> saveRespose(@RequestHeader(name = "Authorization", required = true) String token,
 			@RequestBody List<QuestionsEntity> questionsResponse) {
 		log.info("start");
@@ -97,7 +99,7 @@ public class ChecklistController {
 		} else {
 			log.error("token expired");
 			log.info("end");
-			responseEntity = new ResponseEntity<String>("the token is expired and not valid anymore",
+			responseEntity = new ResponseEntity<String>(tokenExpired,
 					HttpStatus.FORBIDDEN);
 			return responseEntity;
 		}

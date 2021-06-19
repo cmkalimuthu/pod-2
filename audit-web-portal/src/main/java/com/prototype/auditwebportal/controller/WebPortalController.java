@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.prototype.auditwebportal.exception.InvalidAuditTypeException;
 import com.prototype.auditwebportal.feignclients.AuditCheckListProxy;
 import com.prototype.auditwebportal.feignclients.AuditSeverityProxy;
 import com.prototype.auditwebportal.feignclients.AuthClient;
@@ -55,6 +56,10 @@ public class WebPortalController {
 
 	@Autowired
 	AuditSeverityProxy auditSeverityProxy;
+
+	final String accessDenied = "Access Denied";
+	final String invalidAuditType = "invalid audit type";
+	final String tokenExpired = "the token is expired and not valid anymore";
 
 	/*
 	 * This is method which returns login page
@@ -108,7 +113,8 @@ public class WebPortalController {
 			return "home";
 		} catch (Exception e) {
 			log.info(e.getMessage());
-			return "errorLogin";
+			map.addAttribute("invalid","Invalid Credentials .try again !!");
+			return "login";
 		}
 
 	}
@@ -120,8 +126,10 @@ public class WebPortalController {
 	@PostMapping("/AuditCheckListQuestions")
 	public String getResponses(@ModelAttribute("projectDetails") ProjectDetails projectDetails,
 			@ModelAttribute("auditType") AuditType auditType, RedirectAttributes redirectAttributes,
-			HttpSession request, ModelMap map) {
+			HttpSession request, ModelMap map) throws InvalidAuditTypeException {
 		log.info("start");
+		log.debug("projectDetails", projectDetails);
+		log.debug("auditType", auditType);
 		List<QuestionsEntity> questions = new ArrayList<>();
 		auditRequest.setProjectName(projectDetails.getProjectName());
 		auditRequest.setManagerName(projectDetails.getManagerName());
@@ -130,16 +138,11 @@ public class WebPortalController {
 
 			questions = auditCheckListProxy.getQuestions(request.getAttribute("token").toString(), auditType).getBody();
 
-		} catch (IndexOutOfBoundsException e) {
-			log.info(e.getMessage());
-			if (e.getMessage().contains("invalid audit type")) {
-				return "redirect:/internalServerError";
-			}
-
 		} catch (Exception e) {
 			log.info(e.getMessage());
-			if (e.getMessage().contains("Access Denied"))
+			if (e.getMessage().contains(accessDenied)) {
 				return "tokenExpiredPage";
+			}
 
 			return "internalServerError";
 
@@ -153,7 +156,6 @@ public class WebPortalController {
 		}
 		Questions questionslist = new Questions();
 		questionslist.setQuestionsEntity(questions);
-		System.out.println(questionslist.getQuestionsEntity());
 		redirectAttributes.addFlashAttribute("questions", questionslist);
 		redirectAttributes.addFlashAttribute("auditType", auditType);
 
@@ -170,8 +172,6 @@ public class WebPortalController {
 	public String questions(HttpSession session, AuditType auditType, RedirectAttributes redirectAttributes,
 			ProjectDetails projectDetails) {
 		log.debug(auditType.toString());
-		System.out.println(auditType);
-
 		redirectAttributes.addFlashAttribute("auditType", auditType);
 		redirectAttributes.addFlashAttribute("projectDetails", projectDetails);
 		return "redirect:/AuditCheckListQuestions";
@@ -182,6 +182,7 @@ public class WebPortalController {
 	public String getQuestions(@ModelAttribute("questions") Questions questions,
 			@ModelAttribute("auditType") AuditType auditType, HttpSession session, ModelMap map) {
 		log.info("start");
+		log.debug("auditType", auditType);
 		ResponseEntity<?> authResponse = null;
 		try {
 
@@ -189,7 +190,7 @@ public class WebPortalController {
 
 		} catch (Exception e) {
 			log.info(e.getMessage());
-			if (e.getMessage().contains("the token is expired and not valid anymore")) {
+			if (e.getMessage().contains(tokenExpired)) {
 				return "tokenExpiredPage";
 			}
 
@@ -210,6 +211,7 @@ public class WebPortalController {
 	@PostMapping("/questions")
 	public String getResponses(@ModelAttribute("questions") Questions questions, HttpSession session) {
 		log.info("start");
+		log.debug("questions", questions);
 		ResponseEntity<?> authResponse = null;
 		List<QuestionsEntity> responseEntity = null;
 		List<QuestionsEntity> questionsEntity = questions.getQuestionsEntity();
@@ -220,10 +222,12 @@ public class WebPortalController {
 
 		} catch (Exception e) {
 			log.info(e.getMessage());
-			if (e.getMessage().contains("Access Denied"))
+			if (e.getMessage().contains(accessDenied)) {
 				return "tokenExpiredPage";
-			if (e.getMessage().contains("Authentication Failed. Username or Password not valid."))
+			}
+			if (e.getMessage().contains("Authentication Failed. Username or Password not valid.")) {
 				return "authFailed";
+			}
 			if (authResponse == null || responseEntity == null) {
 				return "internalServerError";
 
@@ -250,12 +254,14 @@ public class WebPortalController {
 
 		} catch (Exception e) {
 			log.info(e.getMessage());
-			if (e.getMessage().contains("the token is expired and not valid anymore"))
+			if (e.getMessage().contains(tokenExpired)) {
 				return "tokenExpiredPage";
-			else if (e.getMessage().contains("Access Denied"))
+			}
+			else if (e.getMessage().contains("Access Denied")) {
 				return "forbidden";
+			}
 
-			return "tokenExpiredPage";
+			return "internalServerError";
 		}
 		map.addAttribute("auditResponse", auditResponse);
 		map.addAttribute("auditType", new AuditType());
@@ -288,13 +294,10 @@ public class WebPortalController {
 	public String logout(HttpServletRequest request, HttpServletResponse response) {
 		log.info("start");
 		HttpSession httpSession = request.getSession();
-//        httpSession.removeAttribute("token");
 		httpSession.invalidate();
-//		request.getSession().invalidate();
-		response.setHeader("Cache-Control", "no-cache"); // Forces caches to obtain a new copy of the page from the
-															// origin server
-		response.setHeader("Cache-Control", "no-store"); // Directs caches not to store the page under any circumstance
-		response.setDateHeader("Expires", 0); // Causes the proxy cache to see the page as "stale"
+		response.setHeader("Cache-Control", "no-cache");
+		response.setHeader("Cache-Control", "no-store");
+		response.setDateHeader("Expires", 0);
 		response.setHeader("Pragma", "no-cache");
 		log.info("end");
 		return "redirect:/loginPage";

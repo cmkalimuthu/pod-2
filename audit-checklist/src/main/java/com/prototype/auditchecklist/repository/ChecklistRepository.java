@@ -21,5 +21,6 @@ public interface ChecklistRepository extends JpaRepository<QuestionsEntity, Inte
 	 */
 	
 	List<QuestionsEntity> findByAuditType(String auditType);
+	
 
 }

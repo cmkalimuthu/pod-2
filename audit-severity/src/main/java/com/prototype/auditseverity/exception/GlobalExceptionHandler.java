@@ -35,6 +35,7 @@ public class GlobalExceptionHandler {
 	@ExceptionHandler(FeignProxyException.class)
 	public ResponseEntity<CustomErrorResponse> handelFeignProxyException(FeignProxyException ex) {
 		log.info("start");
+		log.debug("FeignProxyException",ex);
 		CustomErrorResponse response = new CustomErrorResponse();
 		response.setTimestamp(LocalDateTime.now());
 		response.setMessage(ex.getMessage());

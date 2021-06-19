@@ -19,7 +19,7 @@ public interface AuditCheckListProxy {
 	@PostMapping("/checklist")
 	public ResponseEntity<List<QuestionsEntity>> getQuestions(@RequestHeader(name = "Authorization",required = true)String token,@RequestBody AuditType auditType );
 	
-	@PostMapping("/save-response")
+	@PostMapping("/saveResponse")
 	public ResponseEntity<List<QuestionsEntity>> saveResponses(@RequestHeader(name = "Authorization",required = true)String token,@RequestBody List<QuestionsEntity> questionsResponse);
 	
 	

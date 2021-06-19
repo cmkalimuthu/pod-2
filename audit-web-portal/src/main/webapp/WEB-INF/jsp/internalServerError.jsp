@@ -14,22 +14,30 @@
 	integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l"
 	crossorigin="anonymous">
 <title>internal server error</title>
+<script>
+	window.location.hash = "";
+
+	// Again because Google Chrome doesn't insert
+	// the first hash into the history
+	window.location.hash = "";
+
+	window.onhashchange = function() {
+		window.location.hash = "";
+	}
+</script>
 <style>
 body {
-	background: orange;
-	/* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+	background:white;
 }
 
 /* Element | http://localhost:8084/status */
-
 html {
-  background-color: white;
+	background-color: white;
 }
 
-body > div:nth-child(2) > div:nth-child(2) {
-  padding: 10px;
+body>div:nth-child(2)>div:nth-child(2) {
+	padding: 10px;
 }
-
 
 h1 {
 	color: #FFF;
@@ -40,11 +48,12 @@ h1 {
 	<%@ include file="nav.jsp"%>
 	<div class="container">
 
-		<h1 class="m-5 text-center display-5" style="color: black">Something went wrong please login again !!</h1>
+		<h1 class="m-5 text-center display-5" style="color: black">Something
+			went wrong please try  again later !!</h1>
 		<div class="container">
 			<p class="text-center"></p>
 			<a class="btn btn-success text-center"
-				href="http://localhost:8084/loginPage" style="margin-left: 500px;">login</a>
+				href="/home" style="margin-left: 500px;">home</a>
 		</div>
 
 

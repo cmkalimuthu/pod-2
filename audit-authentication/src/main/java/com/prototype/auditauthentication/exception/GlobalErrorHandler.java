@@ -32,6 +32,7 @@ public class GlobalErrorHandler {
 	@ExceptionHandler(LoginFailedException.class)
 	public ResponseEntity<CustomErrorResponse> handleIdNotFoundexception(LoginFailedException ex) {
 		log.info("start");
+		log.debug("LoginFailedException",ex);
 		CustomErrorResponse response = new CustomErrorResponse(LocalDateTime.now(), HttpStatus.NOT_FOUND,
 				"Invalid Credentials", ex.getMessage());
 		log.info("end");
@@ -46,6 +47,7 @@ public class GlobalErrorHandler {
 	@ExceptionHandler(TokenExpiredException.class)
 	public ResponseEntity<CustomErrorResponse> handleTokenNotFoundexception(TokenExpiredException ex) {
 		log.info("start");
+		log.debug("TokenExpiredException",ex);
 		CustomErrorResponse response = new CustomErrorResponse(LocalDateTime.now(), HttpStatus.NOT_FOUND,
 				"the token is expired and not valid anymore", ex.getMessage());
 		log.info("end");

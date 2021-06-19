@@ -15,7 +15,7 @@ import com.prototype.auditwebportal.model.AuditResponse;
 @FeignClient(url="${fos.severity}",name="audit-severity")
 public interface AuditSeverityProxy {
 	
-	@PostMapping("/execution-status")
+	@PostMapping("/executionStatus")
 	public ResponseEntity<AuditResponse> auditSeverity(@RequestHeader(name = "Authorization",required = true)String token,@RequestBody AuditRequest request);
 	
 }

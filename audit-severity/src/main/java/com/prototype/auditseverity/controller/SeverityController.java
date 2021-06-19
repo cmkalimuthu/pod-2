@@ -49,6 +49,16 @@ public class SeverityController {
 
 	@Autowired
 	TokenService tokenService;
+	
+	final String internal="Internal";
+	final String sox="SOX";
+	final String greenStatus="Green";
+	final String redStatus="Red";
+	final String week2="Action to be taken in 2 weeks";
+	final String week1="Action to be taken in 1 weeks";
+	final String noAction="No action required";
+	final String tokenExpired="the token is expired and not valid anymore";
+	
 
 	/**
 	 * 
@@ -57,10 +67,11 @@ public class SeverityController {
 	 * @return ResponseEntity<Response>
 	 */
 
-	@PostMapping("/execution-status")
+	@PostMapping("/executionStatus")
 	public ResponseEntity<?> getExceutionStatus(@RequestHeader(name = "Authorization", required = true) String token,
 			@RequestBody AuditRequest request) {
 		log.info("start");
+		log.debug("Auditrequest",request);
 		ResponseEntity<?> responseEntity = null;
 		List<QuestionsEntity> questionsList = null;
 		AuditResponse response = null;
@@ -91,17 +102,17 @@ public class SeverityController {
 				}
 			}
 
-			if (auditType.getAuditType().equals("Internal") && noNos <= actualNos) {
-				response = new AuditResponse(1, "Green", "No action required", projectName, managerName, ownerName,
+			if (auditType.getAuditType().equalsIgnoreCase(internal) && noNos <= actualNos) {
+				response = new AuditResponse(1, greenStatus, noAction, projectName, managerName, ownerName,
 						auditType2, auditDate);
-			} else if (auditType.getAuditType().equals("Internal") && noNos > actualNos) {
-				response = new AuditResponse(2, "Red", "Action to be taken in 2 weeks", projectName, managerName,
+			} else if (auditType.getAuditType().equalsIgnoreCase(internal) && noNos > actualNos) {
+				response = new AuditResponse(2, redStatus, week2, projectName, managerName,
 						ownerName, auditType2, auditDate);
-			} else if (auditType.getAuditType().equals("SOX") && noNos <= actualNos) {
-				response = new AuditResponse(3, "Green", "No action needed", projectName, managerName, ownerName,
+			} else if (auditType.getAuditType().equalsIgnoreCase(sox) && noNos <= actualNos) {
+				response = new AuditResponse(3, greenStatus, noAction, projectName, managerName, ownerName,
 						auditType2, auditDate);
-			} else if (auditType.getAuditType().equals("SOX") && noNos > actualNos) {
-				response = new AuditResponse(4, "Red", "Action to be taken in 1 weeks", projectName, managerName,
+			} else if (auditType.getAuditType().equalsIgnoreCase(sox) && noNos > actualNos) {
+				response = new AuditResponse(4, redStatus, week1, projectName, managerName,
 						ownerName, auditType2, auditDate);
 			}
 			requestResponseService.saveResponse(response);
@@ -111,7 +122,7 @@ public class SeverityController {
 		} else {
 			log.error("token expired");
 			log.info("end");
-			responseEntity = new ResponseEntity<String>("the token is expired and not valid anymore",
+			responseEntity = new ResponseEntity<String>(tokenExpired,
 					HttpStatus.FORBIDDEN);
 			return responseEntity;
 		}

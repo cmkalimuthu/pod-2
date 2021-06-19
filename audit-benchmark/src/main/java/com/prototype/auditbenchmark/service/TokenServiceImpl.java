@@ -33,10 +33,12 @@ public class TokenServiceImpl implements TokenService {
 	 */
 	public Boolean checkTokenValidity(String token) {
 		log.info("start");
+		log.debug("token",token);
 		try {
 			AuthResponse authResponse = authClient.getValidity(token).getBody();
-			if (authResponse == null)
+			if (authResponse == null) {
 				throw new FeignProxyException();
+			}
 			log.info("end");
 			return authResponse.isValid();
 		} catch (FeignProxyException fe) {

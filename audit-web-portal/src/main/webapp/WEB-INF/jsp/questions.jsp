@@ -17,6 +17,17 @@
 	integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l"
 	crossorigin="anonymous">
 <title>Audit Questions</title>
+<script>
+    window.location.hash = "";
+
+    // Again because Google Chrome doesn't insert
+    // the first hash into the history
+    window.location.hash = ""; 
+
+    window.onhashchange = function(){
+        window.location.hash = "";
+    }
+</script>
 <style>
 body {
 	background: white;

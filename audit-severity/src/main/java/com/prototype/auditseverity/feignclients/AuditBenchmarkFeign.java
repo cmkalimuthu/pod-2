@@ -16,7 +16,7 @@ import com.prototype.auditseverity.pojo.AuditBenchmark;
 
 @FeignClient(name="audit-benchmark",url="${audit.benchmark.url}")
 public interface AuditBenchmarkFeign {
-	@GetMapping("/audit-benchmark")
+	@GetMapping("/benchmark")
 	public ResponseEntity<List<AuditBenchmark>> getBenchMark(@RequestHeader("Authorization") String token);
 
 }
